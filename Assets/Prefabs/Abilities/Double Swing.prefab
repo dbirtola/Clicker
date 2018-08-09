@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1625231367834712}
+  m_IsPrefabParent: 1
+--- !u!1 &1625231367834712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4260070064572030}
+  - component: {fileID: 114034780715617704}
+  - component: {fileID: 114438042363440442}
+  m_Layer: 0
+  m_Name: Double Swing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4260070064572030
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625231367834712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 454.30884, y: 374.81537, z: 4.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114034780715617704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625231367834712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d796a39d4e4c44d47b709c924875d451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owningPlayer: {fileID: 0}
+  owningPawn: {fileID: 0}
+  abilityName: Double Swing
+  description: Your taps attack twice each for the next 7 seconds.
+  cooldown: 15
+  manaCost: 45
+  requiresQueue: 0
+  timeOffCooldown: 0
+  icon: {fileID: 21300000, guid: 2a6f2ec2ccc8bb044b525fe130620efe, type: 3}
+  duration: 7
+  delay: 0.1
+--- !u!114 &114438042363440442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625231367834712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 12
+    i1: 143
+    i2: 104
+    i3: 78
+    i4: 158
+    i5: 180
+    i6: 67
+    i7: 164
+    i8: 187
+    i9: 152
+    i10: 156
+    i11: 109
+    i12: 197
+    i13: 117
+    i14: 96
+    i15: 175
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
