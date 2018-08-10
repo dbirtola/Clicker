@@ -64,7 +64,6 @@ public class FightManager : NetworkBehaviour {
        
         foreach(PlayerPawn ppawn in FindObjectsOfType<PlayerPawn>())
         {
-            Debug.LogError("Caling it");
             ppawn.RpcInitializeStats();
             ppawn.transform.position = new Vector3(0, -3, 0);
         }

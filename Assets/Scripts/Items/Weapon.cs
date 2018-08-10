@@ -12,13 +12,13 @@ public class Weapon : Item {
     {
         base.Awake();
         //implicitProperty = new ItemProperty();
+        implicitProperty = new CriticalChanceProperty(this);
 
     }
 
     protected override void Start()
     {
         base.Start();
-        implicitProperty = new CriticalChanceProperty(this);
     }
 
     public override void Equip()

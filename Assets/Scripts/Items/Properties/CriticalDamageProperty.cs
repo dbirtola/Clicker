@@ -92,4 +92,17 @@ public class CriticalDamageProperty : ItemProperty{
     {
         return (int)Mathf.Ceil(value * Mathf.Pow(1.06f, item.refineLevel) - 0.01f);
     }
+
+    public override ItemPropertyData SavePropertyData()
+    {
+        ItemPropertyData ipd = base.SavePropertyData();
+        ipd.propertyData = value.ToString();
+
+        return ipd;
+    }
+
+    public override void LoadPropertyData(ItemPropertyData ipd)
+    {
+        value = int.Parse(ipd.propertyData);
+    }
 }

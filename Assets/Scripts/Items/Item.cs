@@ -11,6 +11,19 @@ public enum ItemQuality
     Unique
 }
 
+//Only need to save data generated through gameplay, not data from the prefabs
+[System.Serializable]
+public class ItemData
+{
+    public string itemType;
+    public ItemQuality itemQuality;
+    public int itemLevel;
+    public int refineLevel;
+
+    public List<ItemPropertyData> itemPropertyDatas;
+    
+}
+
 public class Item : MonoBehaviour {
 
 
@@ -215,5 +228,80 @@ public class Item : MonoBehaviour {
         return itemQuality;
     }
 
+
+    
+        //Probably a better and safer way to do this than string comparison, but this works for now
+       
+    ItemProperty AddProperty(string propertyName)
+    {
+        ItemProperty newProperty = null;
+        switch (propertyName)
+        {
+            case "BonusHealthProperty":
+                newProperty = new BonusHealthProperty(this);
+                break;
+            case "CriticalChanceProperty":
+                newProperty = new CriticalChanceProperty(this);
+                break;
+            case "CriticalDamageProperty":
+                newProperty = new CriticalDamageProperty(this);
+                break;
+            case "BonusArmorProperty":
+                newProperty = new BonusArmorProperty(this);
+                break;
+            case "ManaPerTapProperty":
+                newProperty = new ManaPerTapProperty(this);
+                break;
+            case "PoisonDamageProperty":
+                newProperty = new PoisonDamageProperty(this);
+                break;
+            default:
+                Debug.LogError("Unable to load property of type: " + propertyName);
+                return null;
+        }
+
+        Debug.Log("Loaded property: " + newProperty.GetType().ToString());
+        properties.Add(newProperty);
+
+        return newProperty;
+    }
+
+
+    public ItemData SaveItemData()
+    {
+        ItemData itemData = new ItemData();
+        //Basically this has an issue because the 4 main armor types are all of class Armor, which makes GetType() return Armor for each one
+        //Need to either split into subclasses or find a better way to store the itemtype data. Name will work but is not reliable, as item names
+        //Should be able to change without corrupting save game data
+        itemData.itemType = itemName; //THIS NEEDS TO BE FIXED. ONLY WORKS BECAUSE THATS HOW PREFABS ARE NAMED
+        
+        itemData.itemLevel = itemLevel;
+        itemData.itemQuality = itemQuality;
+        itemData.refineLevel = refineLevel;
+        itemData.itemPropertyDatas = new List<ItemPropertyData>();
+
+        foreach (ItemProperty ip in properties)
+        {
+            itemData.itemPropertyDatas.Add(ip.SavePropertyData());
+        }
+
+        return itemData;
+    }
+
+
+    //Type should have already been determined by the inventory class when loading the items
+    public void LoadItemData(ItemData itemData)
+    {
+        itemLevel = itemData.itemLevel;
+        itemQuality = itemData.itemQuality;
+        refineLevel = itemData.refineLevel;
+        
+        foreach(ItemPropertyData ipd in itemData.itemPropertyDatas)
+        {
+            var newProperty = AddProperty(ipd.propertyType);
+            newProperty.LoadPropertyData(ipd);
+        }
+        
+    }
 
 }

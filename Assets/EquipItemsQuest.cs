@@ -24,7 +24,6 @@ public class EquipItemsQuest : Quest {
         {
             if(i == null || i.GetQuality() < requiredQuality)
             {
-                Debug.Log("Not enough");
                 return;
             }
         }

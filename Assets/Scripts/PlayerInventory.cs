@@ -13,6 +13,14 @@ public class ItemEquippedEvent : UnityEvent<Item>
 
 }
 
+[System.Serializable]
+public class PlayerInventoryData
+{
+    public List<ItemData> equippedItems;
+    public List<ItemData> heldItems;
+
+}
+
 public class PlayerInventory : MonoBehaviour {
 
     public const int MaxItems = 20;
@@ -85,7 +93,7 @@ public class PlayerInventory : MonoBehaviour {
 
     public bool addItem(Item item)
     {
-        if(items.Count >= MaxItems && item != null)
+        if(items.Count >= MaxItems || item == null)
         {
             return false;
         }
@@ -195,5 +203,66 @@ public class PlayerInventory : MonoBehaviour {
         return true;
     }
 
-    
+    public PlayerInventoryData SaveInventoryData()
+    {
+        PlayerInventoryData pid = new PlayerInventoryData();
+        pid.equippedItems = new List<ItemData>();
+
+        //Forgot I made a function for this until after typing it all.. damn.
+
+        var equippedItems = GetAllEquipped();
+        foreach(Item item in equippedItems)
+        {
+            if(item == null)
+            {
+                //Still add null items to make sure everything stays in order. Order is critical to the save/load process
+                pid.equippedItems.Add(null);
+            }else
+            {
+                pid.equippedItems.Add(item.SaveItemData());
+            }
+        }
+        /*
+        pid.equippedItems.Add(equippedWeapon.SaveItemData());
+        pid.equippedItems.Add(equippedArmor.SaveItemData());
+        pid.equippedItems.Add(equippedHelmet.SaveItemData());
+        pid.equippedItems.Add(equippedGloves.SaveItemData());
+        pid.equippedItems.Add(equippedBoots.SaveItemData());
+        */
+
+        pid.heldItems = new List<ItemData>();
+        foreach(Item i in items)
+        {
+            pid.heldItems.Add(i.SaveItemData());
+        }
+
+        return pid;
+    }
+
+
+
+    public void LoadInventoryData(PlayerInventoryData pid)
+    {
+        ItemFactory itemFactory = FindObjectOfType<ItemFactory>();
+
+        foreach(ItemData id in pid.equippedItems)
+        {
+            if(id != null)
+            {
+                Item newItem = itemFactory.SpawnItemOfType(id.itemType);
+                newItem.LoadItemData(id);
+                EquipItem(newItem);
+            }
+        }
+
+        foreach(ItemData id in pid.heldItems)
+        {
+            if(id != null)
+            {
+                Item newItem = itemFactory.SpawnItemOfType(id.itemType);
+                newItem.LoadItemData(id);
+                addItem(newItem);
+            }
+        }
+    }
 }

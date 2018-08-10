@@ -20,6 +20,8 @@ public class PlayerData
     public CraftingData craftingData;
     public ArtifactData artifactData;
     public AbilityData abilityData;
+    public PlayerStatData playerStatData;
+    public PlayerInventoryData playerInventoryData;
 }
 
 
@@ -34,8 +36,11 @@ public class PersistanceManager : MonoBehaviour {
     PlayerCrafting playerCrafting;
     PlayerArtifacts playerArtifacts;
     PlayerAbilities playerAbilities;
+    PlayerStats playerStats;
+    PlayerInventory playerInventory;
 
     public bool loadOnStart = true;
+    public bool saveOnQuit = true;
     public bool resetPersistantData = false;
 
     //Temporary field so I can test and view in inspector;
@@ -49,6 +54,8 @@ public class PersistanceManager : MonoBehaviour {
         playerCrafting = GetComponent<PlayerCrafting>();
         playerArtifacts = GetComponent<PlayerArtifacts>();
         playerAbilities = GetComponent<PlayerAbilities>();
+        playerStats = GetComponent<PlayerStats>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
 
@@ -92,6 +99,8 @@ public class PersistanceManager : MonoBehaviour {
         playerData.craftingData = playerCrafting.SaveCraftingState();
         playerData.artifactData = playerArtifacts.SaveArtifacts();
         playerData.abilityData = playerAbilities.SaveAbilityData();
+        playerData.playerStatData = playerStats.SaveStats();
+        playerData.playerInventoryData = playerInventory.SaveInventoryData();
 
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -114,9 +123,19 @@ public class PersistanceManager : MonoBehaviour {
             playerCrafting.LoadCraftingState(playerData.craftingData);
             playerArtifacts.LoadArtifacts(playerData.artifactData);
             playerAbilities.LoadAbilityData(playerData.abilityData);
+            playerStats.LoadStats(playerData.playerStatData);
+            playerInventory.LoadInventoryData(playerData.playerInventoryData);
 
         }
 
         persistantDataLoadedEvent.Invoke();
+    }
+
+    void OnApplicationQuit()
+    {
+        if (saveOnQuit)
+        {
+            SaveGame();
+        }
     }
 }

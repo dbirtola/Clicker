@@ -92,4 +92,18 @@ public class CriticalChanceProperty : ItemProperty{
     {
         return (int)Mathf.Ceil(value + value * 1/5f * item.refineLevel);
     }
+
+
+    public override ItemPropertyData SavePropertyData()
+    {
+        ItemPropertyData ipd = base.SavePropertyData();
+        ipd.propertyData = value.ToString();
+
+        return ipd;
+    }
+
+    public override void LoadPropertyData(ItemPropertyData ipd)
+    {
+        value = float.Parse(ipd.propertyData);
+    }
 }

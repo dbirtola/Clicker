@@ -21,13 +21,14 @@ public class Armor : Item {
     {
         base.Awake();
         //implicitProperty = new ItemProperty();
+        implicitProperty = new BonusHealthProperty(this);
+        
 
     }
 
     protected override void Start()
     {
         base.Start();
-        implicitProperty = new BonusHealthProperty(this);
     }
 
     public override void Equip()

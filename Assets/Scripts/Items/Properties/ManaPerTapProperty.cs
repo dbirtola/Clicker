@@ -98,4 +98,17 @@ public class ManaPerTapProperty : ItemProperty{
     {
         return (int)Mathf.Ceil(value * Mathf.Pow(1.0564f, item.refineLevel));
     }
+
+    public override ItemPropertyData SavePropertyData()
+    {
+        ItemPropertyData ipd = base.SavePropertyData();
+        ipd.propertyData = value.ToString();
+
+        return ipd;
+    }
+
+    public override void LoadPropertyData(ItemPropertyData ipd)
+    {
+        value = int.Parse(ipd.propertyData);
+    }
 }

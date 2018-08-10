@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class ItemFactory : MonoBehaviour {
     static ItemFactory itemFactory = null;
 
@@ -88,6 +90,21 @@ public class ItemFactory : MonoBehaviour {
         newItem.SetQuality(quality);
         newItem.RollProperties(monsterLevel);
 
+        return newItem;
+    }
+
+
+    //itemType should match the class name of the item as stored
+    //in the dictionary "items"
+    public Item SpawnItemOfType(string itemType)
+    {
+        if(items[itemType] == null)
+        {
+            Debug.LogError("Could not spawn item of type: " + itemType);
+            return null;
+        }
+
+        Item newItem = Instantiate(items[itemType]).GetComponent<Item>();
         return newItem;
     }
 }

@@ -18,6 +18,13 @@ public class DamageMultiplierStruct
     public float expireTime;
 }
 
+//Stats that are recreatable from items/artifacts/etc. should not be saved.
+[System.Serializable]
+public class PlayerStatData
+{
+    public int level;
+    public int experience;
+}
 
 //Using a struct to store players stats to make it easier to pass the information to the server
 //Also was originally intended to suit an idea that was removed from the game, and its not likely that refactoring would be worth the time
@@ -51,6 +58,8 @@ public struct PlayerStatStruct
 public class PlayerStats : MonoBehaviour {
 
     public PlayerStatStruct baseStats;
+    //BonusStats are stats given by armor/artifacts/effects outside of combat. These will not be immediately present on the players pawn
+    //until combat starts and the pawn is told to initialize its stats.
     public PlayerStatStruct bonusStats;
 
     public LevelUpEvent levelUpEvent;
@@ -120,7 +129,7 @@ public class PlayerStats : MonoBehaviour {
     public void AddBonusHealth(int health)
     {
         bonusStats.maxHealth += health;
-        GetComponent<Player>().GetPlayerPawn().GetComponent<Health>().maxHealth = GetTotalStatStruct().maxHealth;
+        //GetComponent<Player>().GetPlayerPawn().GetComponent<Health>().maxHealth = GetTotalStatStruct().maxHealth;
 
     }
 
@@ -349,5 +358,21 @@ public class PlayerStats : MonoBehaviour {
     public int GetTowerStartBonus()
     {
         return baseStats.towerStartBonus + bonusStats.towerStartBonus;
+    }
+
+
+    public PlayerStatData SaveStats()
+    {
+        PlayerStatData psd = new PlayerStatData();
+        psd.experience = baseStats.currentExperience;
+        psd.level = baseStats.level;
+
+        return psd;
+    }
+
+    public void LoadStats(PlayerStatData playerStatData)
+    {
+        baseStats.currentExperience = playerStatData.experience;
+        baseStats.level = playerStatData.level;
     }
 }

@@ -86,4 +86,17 @@ public class BonusHealthProperty : ItemProperty{
     {
         return (int)Mathf.Ceil(value * Mathf.Pow(1.07f, item.refineLevel));
     }
+
+    public override ItemPropertyData SavePropertyData()
+    {
+        ItemPropertyData ipd = base.SavePropertyData();
+        ipd.propertyData = value.ToString();
+
+        return ipd;
+    }
+
+    public override void LoadPropertyData(ItemPropertyData ipd)
+    {
+        value = int.Parse(ipd.propertyData);
+    }
 }

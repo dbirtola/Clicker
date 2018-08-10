@@ -34,10 +34,7 @@ public class PlayerAbilities : MonoBehaviour {
             equippedAbilities.Add(null);
         }
         availableAbilities = new List<Ability>();
-    }
 
-    void Start()
-    {
         var ab1 = AddAbility(FindObjectOfType<HeavySlash>());
         abilityGainedEvent.Invoke(ab1);
 
@@ -58,8 +55,9 @@ public class PlayerAbilities : MonoBehaviour {
 
         ab1 = AddAbility(FindObjectOfType<DoubleSwing>());
         abilityGainedEvent.Invoke(ab1);
-        
     }
+
+  
 
 
     //Return type not useful, just here for testing should change tho

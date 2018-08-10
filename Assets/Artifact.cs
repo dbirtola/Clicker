@@ -68,6 +68,11 @@ public class Artifact : MonoBehaviour {
         Activate();
     }
 
+    public bool GetOwned()
+    {
+        return isOwned;
+    }
+
 
     public ArtifactState SaveArtifact()
     {

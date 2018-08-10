@@ -45,7 +45,7 @@ public class EnemySpawner : NetworkBehaviour {
         if(Random.Range(0, 1f) <= chanceForSpecialMonster * playerStats.GetSpecialMonsterMultiplier())
         {
             var me = enemy.gameObject.AddComponent<MagicEnemy>();
-            Debug.Log("Spawned Magic enemy!");
+            Debug.Log("Spawned Magic enemy!" + me.name);
         }
 
         NetworkServer.Spawn(enemy.gameObject);

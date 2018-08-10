@@ -8,7 +8,7 @@ public class ClickerNetworkManager : NetworkManager {
     int destinationArea = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
        
         StartHost();
 	}

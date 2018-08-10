@@ -25892,7 +25892,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   loadOnStart: 1
-  resetPersistantData: 1
+  saveOnQuit: 1
+  resetPersistantData: 0
   playerData:
     questStates: []
     craftingData:
@@ -25904,6 +25905,12 @@ MonoBehaviour:
       artifactStates: []
     abilityData:
       equippedAbilityTypes: []
+    playerStatData:
+      level: 0
+      experience: 0
+    playerInventoryData:
+      equippedItems: []
+      heldItems: []
 --- !u!1 &1870076554
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,8 +59,8 @@ public class HelpPanel : MonoBehaviour {
             bool doneLeft = false;
             bool doneDown = false;
 
-            float deltaX = rectTransform.offsetMin.x;
-            float deltaY = rectTransform.offsetMin.y - downExtent;
+            //float deltaX = rectTransform.offsetMin.x;
+            //float deltaY = rectTransform.offsetMin.y - downExtent;
 
             while(doneLeft == false)// || doneDown == false)
             {
@@ -120,8 +120,8 @@ public class HelpPanel : MonoBehaviour {
             bool doneLeft = false;
             bool doneDown = false;
 
-            float deltaX = rectTransform.offsetMin.x;
-            float deltaY = rectTransform.offsetMin.y - downExtent;
+            //float deltaX = rectTransform.offsetMin.x;
+            //float deltaY = rectTransform.offsetMin.y - downExtent;
 
             while (doneDown == false)
             {
