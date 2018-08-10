@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Stores the state of an individual artifact
+[System.Serializable]
+public class ArtifactState
+{
+    public string artifactType;
+    public int level;
+}
+
 public class Artifact : MonoBehaviour {
 
     protected Player player;
@@ -60,4 +68,26 @@ public class Artifact : MonoBehaviour {
         Activate();
     }
 
+
+    public ArtifactState SaveArtifact()
+    {
+        ArtifactState ad = new ArtifactState();
+        ad.artifactType = GetType().ToString();
+        ad.level = level;
+
+        return ad;
+    }
+
+    public void LoadArtifact(ArtifactState aState)
+    {
+        //Need checks on type here? Checks should be performed beforehand but look here if it causes issues
+
+        level = aState.level;
+
+        if(level > 0)
+        {
+            isOwned = true;
+            Activate();
+        }
+    }
 }

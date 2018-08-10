@@ -35,4 +35,24 @@ public class EquipItemsQuest : Quest {
 
     }
 
+
+    public override QuestState SaveQuestState()
+    {
+        return base.SaveQuestState();
+        //Dont care about anything other than completed or not
+    }
+
+    public override void LoadQuestState(QuestState questState)
+    {
+        base.LoadQuestState(questState);
+
+        if (completed)
+        {
+            Debug.Log(questName + " loaded as completed");
+        }else
+        {
+            Debug.Log(questName + " loaded as not completed");
+            StartQuest();
+        }
+    }
 }

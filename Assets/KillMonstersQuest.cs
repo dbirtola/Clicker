@@ -33,5 +33,28 @@ public class KillMonstersQuest : Quest {
             }
         }
     }
-    
+
+    public override QuestState SaveQuestState()
+    {
+        QuestState qs = base.SaveQuestState();
+        qs.questState = progress.ToString();
+        return qs;
+    }
+
+    public override void LoadQuestState(QuestState questState)
+    {
+        base.LoadQuestState(questState);
+
+        progress = int.Parse(questState.questState);
+        if(progress >= required)
+        {
+            completed = true;
+            
+        }else
+        {
+            Debug.Log(questName + " loaded with progress " + progress);
+            StartQuest();
+
+        }
+    }
 }

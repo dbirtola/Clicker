@@ -20,20 +20,29 @@ public enum QuestCategory
     Progression
 }
 
+[System.Serializable]
+public class QuestState
+{
+    public string questType;
+    public bool completed;
+    public bool rewardCollected;
+    public string questState;
+}
+
 public class Quest : MonoBehaviour {
 
     protected Player playerController;
 
     public QuestStartedEvent questStartedEvent { get; private set; }
     public QuestFinishedEvent questFinishedEvent { get; private set; }
-
-
+    
     public string questName = "Kill Monster";
     public string description;
 
     public int experienceReward = 0;
 
-    bool completed = false;
+    protected bool completed = false;
+    protected bool rewardCollected = false;
     
     public virtual void Start()
     {
@@ -44,7 +53,7 @@ public class Quest : MonoBehaviour {
 
 
         //For resting leave this in start
-        StartQuest();
+        //StartQuest();
     }
 
     public virtual void StartQuest()
@@ -64,6 +73,26 @@ public class Quest : MonoBehaviour {
     public virtual string GetRewardText()
     {
         return "No Reward";
+    }
+
+    //Returns a string that the quest can interpret to return itself to the proper state
+    public virtual QuestState SaveQuestState()
+    {
+        QuestState qs = new QuestState();
+        qs.questType = GetType().ToString();
+        qs.completed = completed;
+        qs.rewardCollected = rewardCollected;
+
+        return qs;
+    }
+
+    //Returns the quest to its previous state based on the string created from SaveQuestState
+    public virtual void LoadQuestState(QuestState questState)
+    {
+        //No need to set the type, the type is just a flag to find the correct quest
+        completed = questState.completed;
+        rewardCollected = questState.rewardCollected;
+
     }
 
 }

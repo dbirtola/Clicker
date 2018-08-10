@@ -25834,6 +25834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questObject: {fileID: 1332688642}
   quests: []
+  questStates: []
 --- !u!114 &1862889231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25873,6 +25874,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   artifactPoints: 0
   artifactHolder: {fileID: 1873021023}
+  artifacts: []
+--- !u!114 &1862889236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1862889227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4f93d5c89292a4c914c44bf59c6410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistantDataLoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  loadOnStart: 1
+  resetPersistantData: 1
+  playerData:
+    questStates: []
+    craftingData:
+      level: 0
+      experience: 0
+      materials: 0
+    artifactData:
+      artifactPoints: 0
+      artifactStates: []
+    abilityData:
+      equippedAbilityTypes: []
 --- !u!1 &1870076554
 GameObject:
   m_ObjectHideFlags: 0

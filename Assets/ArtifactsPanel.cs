@@ -29,6 +29,8 @@ public class ArtifactsPanel : MonoBehaviour {
     {   
         Refresh();
         FindObjectOfType<PlayerArtifacts>().artifactsChangedEvent.AddListener((Artifact a)=> { Refresh(); });
+
+        FindObjectOfType<PersistanceManager>().persistantDataLoadedEvent.AddListener(Refresh);
     }
 
     public void Refresh()

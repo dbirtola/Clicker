@@ -11,12 +11,29 @@ public class MinineScreen : MonoBehaviour {
     public Text craftingLevelText;
     public Slider craftingExperienceSlider;
 
+    public void Awake()
+    {
+        playerCrafting = FindObjectOfType<PlayerCrafting>();
+    }
+
     public void Start()
     {
         playerCrafting.materialGainedEvent.AddListener(UpdateMaterialsText);
         playerCrafting.craftingLevelUpEvent.AddListener(UpdateCraftingLevel);
+
+        playerCrafting.GetComponent<PersistanceManager>().persistantDataLoadedEvent.AddListener(Refresh);
     }
 
+    void Refresh()
+    {
+
+        materialsText.text = playerCrafting.materials.ToString();
+        craftingLevelText.text = "Level: " + playerCrafting.craftingLevel;
+        UpdateExperienceSlider();
+    }
+
+
+    //These functions suck. Should just bundle them all into Refresh
     public void UpdateMaterialsText(int materialsGained)
     {
         materialsText.text = playerCrafting.materials.ToString();

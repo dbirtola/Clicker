@@ -23,6 +23,13 @@ public class ItemRefinedEvent : UnityEvent<Item>
 
 }
 
+[System.Serializable]
+public class CraftingData
+{
+    public int level;
+    public int experience;
+    public int materials;
+}
 
 public class PlayerCrafting : MonoBehaviour {
 
@@ -250,4 +257,27 @@ public class PlayerCrafting : MonoBehaviour {
         return true;
     }
 
+
+
+    public CraftingData SaveCraftingState()
+    {
+        CraftingData craftingData = new CraftingData();
+        craftingData.level = craftingLevel;
+        craftingData.materials = materials;
+        craftingData.experience = craftingExperience;
+
+        return craftingData;
+    }
+
+    public void LoadCraftingState(CraftingData craftingData)
+    {
+        
+        if(craftingData == null)
+        {
+            return;
+        }
+        craftingLevel = craftingData.level;
+        materials = craftingData.materials;
+        craftingExperience = craftingData.experience;
+    }
 }

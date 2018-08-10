@@ -9,6 +9,11 @@ public class AbilityGainedEvent : UnityEvent<Ability>
 
 }
 
+[System.Serializable]
+public class AbilityData
+{
+    public string[] equippedAbilityTypes;
+}
 
 
 public class PlayerAbilities : MonoBehaviour {
@@ -29,6 +34,31 @@ public class PlayerAbilities : MonoBehaviour {
             equippedAbilities.Add(null);
         }
         availableAbilities = new List<Ability>();
+    }
+
+    void Start()
+    {
+        var ab1 = AddAbility(FindObjectOfType<HeavySlash>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<Berserk>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<Cleave>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<Gouge>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<HealingLight>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<FrostBolt>());
+        abilityGainedEvent.Invoke(ab1);
+
+        ab1 = AddAbility(FindObjectOfType<DoubleSwing>());
+        abilityGainedEvent.Invoke(ab1);
+        
     }
 
 
@@ -100,28 +130,51 @@ public class PlayerAbilities : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+
+    }
+
+
+    public AbilityData SaveAbilityData()
+    {
+        AbilityData AbilityData = new AbilityData();
+
+        string[] equippedAbilityTypes = new string[MAX_EQUIPPED_ABILITIES];
+        for(int i = 0; i < equippedAbilities.Count; i++)
         {
-            var ab1 = AddAbility(FindObjectOfType<HeavySlash>());
-            abilityGainedEvent.Invoke(ab1);
+            if(equippedAbilities[i] != null)
+            {
+                equippedAbilityTypes[i] = equippedAbilities[i].GetType().ToString();
+            }else
+            {
+                equippedAbilityTypes[i] = "null";
+            }
+        }
 
-            ab1 = AddAbility(FindObjectOfType<Berserk>());
-            abilityGainedEvent.Invoke(ab1);
+        AbilityData.equippedAbilityTypes = equippedAbilityTypes;
 
-            ab1 = AddAbility(FindObjectOfType<Cleave>());
-            abilityGainedEvent.Invoke(ab1);
+        return AbilityData;
+    }
 
-            ab1 = AddAbility(FindObjectOfType<Gouge>());
-            abilityGainedEvent.Invoke(ab1);
+    public void LoadAbilityData(AbilityData abilityData)
+    {
+        for (int i = 0; i < equippedAbilities.Count; i++)
+        {
+            if (abilityData.equippedAbilityTypes[i] != "null")
+            {
+                //Find the matching ability to equip by comparing types
 
-            ab1 = AddAbility(FindObjectOfType<HealingLight>());
-            abilityGainedEvent.Invoke(ab1);
-
-            ab1 = AddAbility(FindObjectOfType<FrostBolt>());
-            abilityGainedEvent.Invoke(ab1);
-
-            ab1 = AddAbility(FindObjectOfType<DoubleSwing>());
-            abilityGainedEvent.Invoke(ab1);
+                foreach(Ability ab in availableAbilities)
+                {
+                    if(ab.GetType().ToString() == abilityData.equippedAbilityTypes[i])
+                    {
+                        EquipAbility(ab, i);
+                    }
+                }
+            }
+            else
+            {
+                equippedAbilities[i] = null;
+            }
         }
     }
 }

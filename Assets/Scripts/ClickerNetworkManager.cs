@@ -10,7 +10,7 @@ public class ClickerNetworkManager : NetworkManager {
 	// Use this for initialization
 	void Start () {
        
-        //StartHost();
+        StartHost();
 	}
 	
 
