@@ -7,10 +7,23 @@ public class ClickerNetworkManager : NetworkManager {
     
     int destinationArea = 0;
 
+    static ClickerNetworkManager clickerNetworkManager;
+
 	// Use this for initialization
 	void Awake () {
-       
+
+        if(clickerNetworkManager == null)
+        {
+            clickerNetworkManager = this;
+        }else
+        {
+            Destroy(gameObject);
+            return;   
+        }
+
+
         StartHost();
+        
 	}
 	
 
