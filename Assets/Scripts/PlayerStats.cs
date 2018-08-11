@@ -242,6 +242,11 @@ public class PlayerStats : MonoBehaviour {
 
     }
 
+    public void SetLevel(int level)
+    {
+        baseStats.level = level;
+        levelUpEvent.Invoke(baseStats.level);
+    }
 
     //= 100 + (CharacterLevel - 1) * 30 * 1.07^CharacterLevel
     public int GetExpTillLevel()

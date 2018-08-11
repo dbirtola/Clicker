@@ -69,7 +69,7 @@ public class PlayerCrafting : MonoBehaviour {
     int GetMiningMaterialAmount()
     {
         //Do not add the players material bonus here, or at low amounts the rounding error will be noticeable
-        return (int)Mathf.Ceil(2 * craftingLevel + (1 / 2 * Mathf.Pow(1.09f, craftingLevel)));
+        return (int)Mathf.Ceil(2 * craftingLevel + (1 / 2f * Mathf.Pow(1.09f, craftingLevel)));
     }
     //Materials gained = 2 * CraftingLevel + (1/2 * 1.09^CraftingLevel)
     public void MineRock()

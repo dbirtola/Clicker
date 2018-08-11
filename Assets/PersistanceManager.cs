@@ -7,6 +7,14 @@ using UnityEngine.Events;
 
 
 
+
+[System.Serializable]
+public class DevSettingsData
+{
+    public bool resetPersistentData;
+    public bool saveOnQuit;
+}
+
 //All data that wants to be saved needs to be stored in a Serializable class
 //For organization, each major player component gets its own serializable class
 //Which is responsible for saving and restoring the state. The PersistanceManager
@@ -22,6 +30,7 @@ public class PlayerData
     public AbilityData abilityData;
     public PlayerStatData playerStatData;
     public PlayerInventoryData playerInventoryData;
+    
 }
 
 
@@ -31,6 +40,7 @@ public class PlayerData
 public class PersistanceManager : MonoBehaviour {
 
     public UnityEvent persistantDataLoadedEvent;
+    public UnityEvent devDataLoadedEvent;
 
     PlayerQuests playerQuests;
     PlayerCrafting playerCrafting;
@@ -49,6 +59,7 @@ public class PersistanceManager : MonoBehaviour {
     void Awake()
     {
         persistantDataLoadedEvent = new UnityEvent();
+        devDataLoadedEvent = new UnityEvent();
 
         playerQuests = GetComponent<PlayerQuests>();
         playerCrafting = GetComponent<PlayerCrafting>();
@@ -62,6 +73,7 @@ public class PersistanceManager : MonoBehaviour {
     //Should always be the last object to run Start().
     void Start()
     {
+        LoadDev();
 
         if(loadOnStart == true)
         {
@@ -85,10 +97,52 @@ public class PersistanceManager : MonoBehaviour {
         {
             SaveGame();
         }
-        if (Input.GetKeyDown(KeyCode.W))
+    }
+
+    public DevSettingsData SavePlayerSettings() 
+    {
+        DevSettingsData psd = new DevSettingsData();
+
+        psd.resetPersistentData = resetPersistantData;
+        psd.saveOnQuit = saveOnQuit;
+
+        return psd;
+    }
+
+
+    public void LoadPlayerSettings(DevSettingsData psd)
+    {
+        resetPersistantData = psd.resetPersistentData;
+        saveOnQuit = psd.saveOnQuit;
+    }
+
+    public void SaveDev()
+    {
+        DevSettingsData devSettingsData = new DevSettingsData();
+        devSettingsData.resetPersistentData = resetPersistantData;
+        devSettingsData.saveOnQuit = saveOnQuit;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/devData.dat", FileMode.Create);
+        Debug.Log("Saved dev data to: " + Application.persistentDataPath + "/devData.dat");
+        bf.Serialize(file, devSettingsData);
+        file.Close();
+    }
+
+    public void LoadDev()
+    {
+        if (File.Exists(Application.persistentDataPath + "/devData.dat"))
         {
-            LoadGame();
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/devData.dat", FileMode.Open);
+            var devData = (DevSettingsData)bf.Deserialize(file);
+            file.Close();
+
+            resetPersistantData = devData.resetPersistentData;
+            saveOnQuit = devData.saveOnQuit;
         }
+
+        devDataLoadedEvent.Invoke();
     }
 
     public void SaveGame()
@@ -133,6 +187,7 @@ public class PersistanceManager : MonoBehaviour {
 
     void OnApplicationQuit()
     {
+        SaveDev();
         if (saveOnQuit)
         {
             SaveGame();

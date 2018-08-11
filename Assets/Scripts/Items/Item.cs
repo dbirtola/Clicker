@@ -107,6 +107,8 @@ public class Item : MonoBehaviour {
 
     public void RollProperties(int itemLevel)
     {
+        properties.Clear();
+
         int numProperties = GetMaxProperties();
         for(int i = 0; i < numProperties; i++)
         {
