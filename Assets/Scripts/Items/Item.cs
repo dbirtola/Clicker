@@ -172,7 +172,6 @@ public class Item : MonoBehaviour {
         {
             if(ip.GetType() == type)
             {
-                Debug.Log("Property: " + ip.GetType() + " matched type: " + type);
                 return true;
             }
         }
@@ -306,4 +305,17 @@ public class Item : MonoBehaviour {
         
     }
 
+    //Values of items are representing in base number of crafting taps
+    //A player with 100 base materials per tap would get 100 x crafting value materials for a sale
+    //
+    public int GetSaleValue()
+    {
+        int baseValue = (int)(itemLevel * 2.5f);
+        int qualityBonus = (int)itemQuality * 10;
+        if(qualityBonus != 0)
+        {
+            baseValue *= qualityBonus;
+        }
+        return baseValue;
+    }
 }

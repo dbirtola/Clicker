@@ -1155,6 +1155,8 @@ MonoBehaviour:
   pPawn: {fileID: 0}
   barbarianChieftanPrefab: {fileID: 114202673354308628, guid: 3cab0ecad336dca4e824495f84f58f82,
     type: 2}
+  elderWizardPrefab: {fileID: 114689567560599016, guid: 7639c05cc9276b64881522bacc4bf690,
+    type: 2}
 --- !u!4 &509713862
 Transform:
   m_ObjectHideFlags: 0
@@ -1672,7 +1674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd849a86f0101f47aac97addc03bbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnsOnSquare: []
   location: 2
+  squareToLeft: {fileID: 1045345187}
+  squareToRight: {fileID: 0}
 --- !u!1 &713794503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,7 +2487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd849a86f0101f47aac97addc03bbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnsOnSquare: []
   location: 1
+  squareToLeft: {fileID: 1484543801}
+  squareToRight: {fileID: 659156170}
 --- !u!1 &1045526301
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,7 +3453,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd849a86f0101f47aac97addc03bbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnsOnSquare: []
   location: 0
+  squareToLeft: {fileID: 0}
+  squareToRight: {fileID: 1045345187}
 --- !u!1 &1487184061
 GameObject:
   m_ObjectHideFlags: 0

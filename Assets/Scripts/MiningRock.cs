@@ -15,6 +15,8 @@ public class MiningRock : MonoBehaviour {
 
     public bool devHoldToClick = true;
 
+    public FloatingText floatingTextPrefab;
+
     void Awake()
     {
         playerCrafting = FindObjectOfType<PlayerCrafting>();
@@ -23,6 +25,7 @@ public class MiningRock : MonoBehaviour {
     void Start()
     {
         StartCoroutine(GenerateOres());
+        playerCrafting.materialMinedEvent.AddListener(CreateText);
     }
 
     public void Update()
@@ -40,6 +43,18 @@ public class MiningRock : MonoBehaviour {
                 GetComponent<Button>().onClick.Invoke();
             }
         }
+    }
+
+    void CreateText(int val)
+    {
+        var txt = Instantiate(floatingTextPrefab, transform).GetComponent<FloatingText>();
+        // Vector3 offset = new Vector3(Random.Range(-90, 90), Random.Range(-70, 70), 0);
+        //var position = Camera.main.WorldToScreenPoint(transform.position);
+        txt.GetComponent<Text>().color = Color.cyan;
+        Vector3 offset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0);
+        txt.transform.position = txt.transform.position + offset;
+        txt.Float(transform.position, val.ToString());
+        
     }
 
     IEnumerator GenerateOres()

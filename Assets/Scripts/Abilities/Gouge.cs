@@ -37,7 +37,7 @@ public class Gouge : Ability {
         var debuffs = target.GetComponent<Debuffs>();
         if(debuffs != null)
         {
-            debuffs.AddDamageOverTimeEffect(owningPawn.gameObject, 5, 0.25f, 10);
+            debuffs.AddDamageOverTimeEffect(owningUnit.gameObject, 5, 0.25f, 10);
         }
     }
 }

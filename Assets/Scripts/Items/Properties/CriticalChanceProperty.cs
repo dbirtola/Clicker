@@ -50,7 +50,6 @@ public class CriticalChanceProperty : ItemProperty{
     {
         base.Roll(iLvl);
         float max = GetMaxRoll(iLvl);
-        Debug.Log("ROLLING CRIT WITH RANGE: " + (2 / 3f) * max + "  - " + max);
         value = (int)Mathf.Ceil(Random.Range((2f / 3) * max, max));
     }
 

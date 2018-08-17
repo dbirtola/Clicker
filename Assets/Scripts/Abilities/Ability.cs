@@ -9,7 +9,7 @@ public class Ability : MonoBehaviour {
 
 
     public Player owningPlayer;
-    public PlayerPawn owningPawn;
+    public Unit owningUnit;
     protected PlayerStats playerStats;
     protected Mana pawnMana;
 
@@ -63,7 +63,7 @@ public class Ability : MonoBehaviour {
     {
         //deduct mana
         
-        owningPawn.GetComponent<Mana>().UseMana(cost);
+        owningUnit.GetComponent<Mana>().UseMana(cost);
     }
     
     //Checks cooldowns and mana before using the ability
@@ -75,7 +75,7 @@ public class Ability : MonoBehaviour {
         }
 
         //Do mana check
-        if(owningPawn.GetComponent<Mana>().currentMana < manaCost)
+        if(owningUnit.GetComponent<Mana>().currentMana < manaCost)
         {
             return false;
         }
@@ -85,7 +85,7 @@ public class Ability : MonoBehaviour {
             QueueAbility();
         }else
         {
-            Use(owningPawn.gameObject);
+            Use(owningUnit.gameObject);
         }
         return true;
     }
@@ -112,7 +112,7 @@ public class Ability : MonoBehaviour {
     //Bypasses mana and cooldown checks and just uses the ability
     public virtual void Use(GameObject target)
     {
-        Debug.Log("Used ability: " + abilityName);
+        Debug.Log(gameObject + " used ability: " + abilityName);
         TriggerCooldown();
         DeductMana(manaCost);
         

@@ -4,6 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Events;
 
+public class DamageInfo
+{
+    //The unit responsible for the damage
+    public GameObject instigator;
+    public GameObject target;
+    public int damage;
+    //The specific object dealing the damage
+    public GameObject damageCauser;
+
+}
+
 public class TookDamageEvent : UnityEvent<int>{
 
 }

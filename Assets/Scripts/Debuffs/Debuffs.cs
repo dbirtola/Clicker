@@ -13,6 +13,8 @@ public class DamageOverTimeEffect
     public float duration;
     public int stacks = 1;
     public bool isActive = false;
+    public Sprite graphicSprite;
+    public GameObject graphicObject;
 
     public DamageOverTimeEffect(GameObject target, int damage, float period, float duration)
     {
@@ -68,11 +70,14 @@ public class Debuffs : NetworkBehaviour {
     List<DamageOverTimeEffect> damageOverTimeEffects;
     List<SlowEffect> slowsEffects;
 
+    static public GameObject debuffGraphicPrefab;
+
     void Awake()
     {
         health = GetComponent<Health>();
         damageOverTimeEffects = new List<DamageOverTimeEffect>();
         slowsEffects = new List<SlowEffect>();
+        debuffGraphicPrefab = Resources.Load("DebuffGraphic") as GameObject;
     }
 
     /*
@@ -108,6 +113,14 @@ public class Debuffs : NetworkBehaviour {
 
         damageOverTimeEffects.Add(dot);
         StartCoroutine(StartDOT(dot));
+
+        if (dot.graphicSprite != null)
+        {
+            dot.graphicObject = Instantiate(debuffGraphicPrefab, dot.target.transform.position, Quaternion.identity);
+            dot.graphicObject.transform.SetParent(dot.target.transform);
+            dot.graphicObject.GetComponent<SpriteRenderer>().sprite = dot.graphicSprite;
+        }
+
         Debug.Log("Added");
     }
 
@@ -118,6 +131,14 @@ public class Debuffs : NetworkBehaviour {
         dot.instigator = instigator;
         damageOverTimeEffects.Add(dot);
         StartCoroutine(StartDOT(dot));
+
+        if (dot.graphicSprite != null)
+        {
+            dot.graphicObject = Instantiate(debuffGraphicPrefab, dot.target.transform.position, Quaternion.identity);
+            dot.graphicObject.transform.SetParent(dot.target.transform);
+            dot.graphicObject.GetComponent<SpriteRenderer>().sprite = dot.graphicSprite;
+        }
+
     }
 
     IEnumerator StartDOT(DamageOverTimeEffect dot)
@@ -142,6 +163,7 @@ public class Debuffs : NetworkBehaviour {
         {
             damageOverTimeEffects[i].expireTime = Time.time;
             damageOverTimeEffects[i].damage = 0;
+            Destroy(damageOverTimeEffects[i].graphicObject);
             damageOverTimeEffects[i].SetActive(false);
         }
     }
