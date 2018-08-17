@@ -42,14 +42,14 @@ public class ElderMagician : Boss {
         Destroy(fireball);
         foreach (PlayerPawn p in targetSquare.pawnsOnSquare)
         {
-            p.ReceiveAttack(gameObject, 200);
+            p.ReceiveAttack(new DamageInfo(gameObject, gameObject, p.gameObject, 150));
         }
 
         foreach (PositionSquare ps in targetSquare.GetAdjacentSquares())
         {
             foreach (PlayerPawn p in ps.pawnsOnSquare)
             {
-                p.ReceiveAttack(gameObject, 100);
+                p.ReceiveAttack(new DamageInfo(gameObject, gameObject, p.gameObject, 100));
             }
         }
 

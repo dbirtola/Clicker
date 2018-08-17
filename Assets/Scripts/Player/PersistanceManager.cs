@@ -141,7 +141,7 @@ public class PersistanceManager : MonoBehaviour {
             resetPersistantData = devData.resetPersistentData;
             saveOnQuit = devData.saveOnQuit;
         }
-
+        
         devDataLoadedEvent.Invoke();
     }
 

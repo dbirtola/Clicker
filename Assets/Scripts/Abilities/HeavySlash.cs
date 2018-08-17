@@ -11,7 +11,8 @@ public class HeavySlash : Ability {
     {
         base.QueueAbility();
 
-        damageMultiplierStruct = playerStats.AddDamageMultiplierForTaps(tapDamageMultiplier, 1);
+        owningUnit.GetComponent<PlayerPawn>().aboutToAttackEvent.AddListener(OnAttack);
+        //damageMultiplierStruct = playerStats.AddDamageMultiplierForTaps(tapDamageMultiplier, 1);
     }
 
     public override void CancelQueue()
@@ -20,9 +21,19 @@ public class HeavySlash : Ability {
 
     }
 
+    public void OnAttack(DamageInfo dmg)
+    {
+        dmg.damage *= 15;
+        dmg.damageCauser = gameObject;
+        owningUnit.GetComponent<PlayerPawn>().aboutToAttackEvent.RemoveListener(OnAttack);
+
+    }
+
     public override void Use(GameObject target)
     {
         base.Use(target);
 
     }
+
+    
 }

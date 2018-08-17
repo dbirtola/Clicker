@@ -5056,7 +5056,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMaterials
         m_Mode: 1
         m_Arguments:
@@ -12858,7 +12858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SetCraftingLevel
         m_Mode: 1
         m_Arguments:
@@ -17791,6 +17791,7 @@ GameObject:
   - component: {fileID: 955262676}
   - component: {fileID: 955262675}
   - component: {fileID: 955262677}
+  - component: {fileID: 955262678}
   m_Layer: 5
   m_Name: HomeScreen2
   m_TagString: Untagged
@@ -17875,6 +17876,30 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &955262678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955262673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7bc2ad1eb504de41bd1c5e62c5cc2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelField: {fileID: 1380264510}
+  craftingLevelField: {fileID: 409158263}
+  materialField: {fileID: 624324733}
+  apField: {fileID: 693885905}
+  iLvlField: {fileID: 1573097709}
+  statField: {fileID: 1904786574}
+  itemQualityDropdown: {fileID: 537046382}
+  itemSlotDropdown: {fileID: 1750822241}
+  statDropdown: {fileID: 572913021}
+  autoSaveToggle: {fileID: 536267443}
+  resetSaveToggle: {fileID: 1482989508}
+  player: {fileID: 0}
+  characterStatsPanel: {fileID: 0}
 --- !u!1 &961924423
 GameObject:
   m_ObjectHideFlags: 0
@@ -23140,7 +23165,6 @@ GameObject:
   - component: {fileID: 1339900253}
   - component: {fileID: 1339900252}
   - component: {fileID: 1339900251}
-  - component: {fileID: 1339900254}
   m_Layer: 5
   m_Name: DevTools
   m_TagString: Untagged
@@ -23230,30 +23254,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339900249}
---- !u!114 &1339900254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1339900249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7bc2ad1eb504de41bd1c5e62c5cc2ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelField: {fileID: 1380264510}
-  craftingLevelField: {fileID: 409158263}
-  materialField: {fileID: 624324733}
-  apField: {fileID: 693885905}
-  iLvlField: {fileID: 1573097709}
-  statField: {fileID: 1904786574}
-  itemQualityDropdown: {fileID: 537046382}
-  itemSlotDropdown: {fileID: 1750822241}
-  statDropdown: {fileID: 572913021}
-  autoSaveToggle: {fileID: 536267443}
-  resetSaveToggle: {fileID: 1482989508}
-  player: {fileID: 0}
-  characterStatsPanel: {fileID: 0}
 --- !u!1 &1350699478
 GameObject:
   m_ObjectHideFlags: 0
@@ -27658,7 +27658,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SetArtifactPoints
         m_Mode: 1
         m_Arguments:
@@ -32988,7 +32988,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SetStat
         m_Mode: 1
         m_Arguments:
@@ -33332,7 +33332,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SpawnItem
         m_Mode: 1
         m_Arguments:
@@ -38920,7 +38920,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339900254}
+      - m_Target: {fileID: 0}
         m_MethodName: SetLevel
         m_Mode: 1
         m_Arguments:

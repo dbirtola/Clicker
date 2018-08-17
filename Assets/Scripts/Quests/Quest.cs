@@ -44,7 +44,7 @@ public class Quest : MonoBehaviour {
     protected bool completed = false;
     protected bool rewardCollected = false;
     
-    public virtual void Start()
+    public virtual void Awake()
     {
         questStartedEvent = new QuestStartedEvent();
         questFinishedEvent = new QuestFinishedEvent();

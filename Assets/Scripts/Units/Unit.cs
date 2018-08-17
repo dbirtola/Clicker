@@ -31,6 +31,7 @@ public class Unit : NetworkBehaviour {
     public float slowPercent = 0;
 
     public UnitDiedEvent unitDied;
+    public DamageEvent aboutToTakeDamageEvent;
     
     //the dealt damage event is invoked after damage reductions to attribute a total number of damage to a specific unit,
     //typically by the health script.
@@ -44,6 +45,7 @@ public class Unit : NetworkBehaviour {
     protected virtual void Awake()
     {
         unitDied = new UnitDiedEvent();
+        aboutToTakeDamageEvent = new DamageEvent();
         dealtDamageEvent = new DealtDamageEvent();
         health = GetComponent<Health>();
         debuffs = GetComponent<Debuffs>();
@@ -59,6 +61,7 @@ public class Unit : NetworkBehaviour {
         RpcProcessDeath();
     }
 
+    /*
     //Receives an attack and performs damage reduction and visual feedback
     //Childhit = -1 means the base object is hit, else it refers to the index of the child hit
     public virtual void ReceiveAttack(GameObject instigator, int damage, int childHit = -1)
@@ -68,6 +71,25 @@ public class Unit : NetworkBehaviour {
         if(childHit == -1)
         {
             health.CmdTakeDamage(instigator, damage);
+
+        }
+
+
+        //Visual feedback
+    }
+    */
+
+
+    //Receives an attack and performs damage reduction and visual feedback
+    //Childhit = -1 means the base object is hit, else it refers to the index of the child hit
+    public virtual void ReceiveAttack(DamageInfo damageInfo, int childHit = -1)
+    {
+        //Damage reduction
+
+        if (childHit == -1)
+        {
+            aboutToTakeDamageEvent.Invoke(damageInfo);
+            health.CmdTakeDamage(damageInfo.instigator, damageInfo.damage);
 
         }
 

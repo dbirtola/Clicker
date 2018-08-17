@@ -13,7 +13,7 @@ public enum ArmorSlot
 public class Armor : Item {
 
     public int armorValue;
-    public int healthValue;
+   // public int healthValue;
 
     public ArmorSlot slot;
 
@@ -35,14 +35,14 @@ public class Armor : Item {
     {
         base.Equip();
         playerStats.AddBonusArmor(armorValue);
-        playerStats.AddBonusHealth(healthValue);
+        //playerStats.AddBonusHealth(healthValue);
     }
 
     public override void Unequip()
     {
         base.Unequip();
         playerStats.AddBonusArmor(-1 * armorValue);
-        playerStats.AddBonusHealth(-1 * healthValue);
+        //playerStats.AddBonusHealth(-1 * healthValue);
     }
 
     // Update is called once per frame
@@ -56,8 +56,8 @@ public class Armor : Item {
         return armorValue;
     }
 
-    public int GetHealthValue()
-    {
-        return healthValue;
-    }
+   // public int GetHealthValue()
+    //{
+    //    return healthValue;
+    //}
 }

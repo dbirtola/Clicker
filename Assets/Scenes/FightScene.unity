@@ -1760,6 +1760,7 @@ MonoBehaviour:
     - {fileID: 114996597207340230, guid: 69861a43c2fbf764b8203319b3d18fcb, type: 2}
     - {fileID: 114893387976722336, guid: b4a9bcb77649f5144b57a0ac10223323, type: 2}
     - {fileID: 114414120514693956, guid: 21220401e24acc04190efb56c4380e2e, type: 2}
+    - {fileID: 114972048424120042, guid: 55b9f988936652943aa53684225c25d1, type: 2}
   - areaName: 
     index: 0
     minLevel: 0

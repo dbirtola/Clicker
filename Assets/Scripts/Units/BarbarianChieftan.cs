@@ -28,7 +28,7 @@ public class BarbarianChieftan : Boss{
         if(playerPawn.positionSquare == square)
         {
             Debug.LogError("Player hit by charge attack!");
-            playerPawn.ReceiveAttack(gameObject, 150);
+            playerPawn.ReceiveAttack(new DamageInfo(gameObject, gameObject, playerPawn.gameObject, 150));
         }
         square.SetColor(Color.white);
 
@@ -56,7 +56,7 @@ public class BarbarianChieftan : Boss{
             if (playerPawn.positionSquare == target)
             {
                 Debug.LogError("Player hit by Chopping Block!");
-                playerPawn.ReceiveAttack(gameObject, 80);
+                playerPawn.ReceiveAttack(new DamageInfo(gameObject, gameObject, playerPawn.gameObject, 80));
             }
 
             UntargetSquare(target);

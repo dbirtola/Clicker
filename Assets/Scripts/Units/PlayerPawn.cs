@@ -11,6 +11,7 @@ using UnityEngine.Events;
 public class PlayerPawn : Unit {
 
     public UnityEvent movedSquaresEvent;
+    public DamageEvent aboutToAttackEvent;
 
     public Player player;
     public PlayerStats playerStats;
@@ -26,6 +27,7 @@ public class PlayerPawn : Unit {
 	protected override void Awake () {
         base.Awake();
         movedSquaresEvent = new UnityEvent();
+        aboutToAttackEvent = new DamageEvent();
 
         poisonDamageEffects = new List<DamageOverTimeEffect>();
        
@@ -58,7 +60,7 @@ public class PlayerPawn : Unit {
 
 
     //childindex == -1 refers to hitting the base object
-    [Command]
+   //[Command]
     public void CmdAttack(GameObject target, int childIndex, int damage)
     {
        // Debug.Log("Hitting child: " + childIndex);
@@ -68,7 +70,9 @@ public class PlayerPawn : Unit {
        // int damage = statStruct.damage;
         if (unit != null)
         {
-            unit.ReceiveAttack(gameObject, damage, childIndex);
+            DamageInfo dmg = new DamageInfo(gameObject, gameObject, target, damage);
+            aboutToAttackEvent.Invoke(dmg);
+            unit.ReceiveAttack(dmg, childIndex);
 
             if(statStruct.poisonDamage > 0)
             {

@@ -8,14 +8,26 @@ public class DamageInfo
 {
     //The unit responsible for the damage
     public GameObject instigator;
-    public GameObject target;
-    public int damage;
     //The specific object dealing the damage
     public GameObject damageCauser;
+    public GameObject target;
+    public int damage;
 
+    public DamageInfo(GameObject instigator, GameObject causer, GameObject target, int damage)
+    {
+        this.instigator = instigator;
+        this.damageCauser = causer;
+        this.target = target;
+        this.damage = damage;
+    }
 }
 
 public class TookDamageEvent : UnityEvent<int>{
+
+}
+
+public class DamageEvent : UnityEvent<DamageInfo>
+{
 
 }
 
@@ -29,6 +41,7 @@ public class Health : NetworkBehaviour {
     public bool showDamage = true;
     public FloatingText floatingTextPrefab;
 
+    public DamageEvent aboutToTakeDamageEvent;
     public TookDamageEvent tookDamageEvent;
     
 

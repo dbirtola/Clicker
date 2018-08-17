@@ -64,6 +64,7 @@ public class KillerBee : Enemy{
 
     }
 
+    /*
     public override void ReceiveAttack(GameObject instigator, int damage, int childHit = -1)
     {
 
@@ -78,6 +79,28 @@ public class KillerBee : Enemy{
         if(childHit == 0)
         {
             health.CmdTakeDamage(instigator, damage * weakSpotDamageMultiplier);
+        }
+
+
+        //Visual feedback
+    }
+    */
+
+
+    public override void ReceiveAttack(DamageInfo damageInfo, int childHit = -1)
+    {
+
+        //Damage reduction
+
+
+        if (childHit == -1)
+        {
+            health.CmdTakeDamage(damageInfo.instigator, damageInfo.damage);
+
+        }
+        if (childHit == 0)
+        {
+            health.CmdTakeDamage(damageInfo.instigator, damageInfo.damage * weakSpotDamageMultiplier);
         }
 
 

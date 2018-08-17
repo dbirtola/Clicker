@@ -57,11 +57,12 @@ public class Enemy : Unit{
         return experience;
     }
     
+    //For sure buggy because it will run on the boss on each client, effectively doing it twice. Shouldve used RpcAttack. fix this
     public virtual void DamageAll(int dmg)
     {
         foreach (var player in FindObjectsOfType<PlayerPawn>())
         {
-            player.GetComponent<Unit>().ReceiveAttack(gameObject, dmg);
+            player.GetComponent<Unit>().ReceiveAttack(new DamageInfo(gameObject, gameObject, player.gameObject, dmg));
 
 
         }
@@ -72,7 +73,7 @@ public class Enemy : Unit{
     {
         foreach(var player in FindObjectsOfType<PlayerPawn>())
         {
-            player.GetComponent<Unit>().ReceiveAttack(gameObject, damage);
+            player.GetComponent<Unit>().ReceiveAttack(new DamageInfo(gameObject, gameObject, player.gameObject, damage));
 
 
         }

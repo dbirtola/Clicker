@@ -15,10 +15,11 @@ public class WizardFireball : Ability {
     {
         base.Use(target);
 
-        StartCoroutine(Fireball(target.GetComponent<PositionSquare>()));
+        //StartCoroutine(Fireball(target.GetComponent<PositionSquare>()));
 
     }
 
+    /*
     IEnumerator Fireball(PositionSquare targetSquare)
     {
         var fireball = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
@@ -40,6 +41,6 @@ public class WizardFireball : Ability {
             }
         }
     }
-
+    */
 
 }
