@@ -9,5 +9,13 @@ public class DivineLight : Ability {
     {
         base.Use(target);
 
+        var mana = target.GetComponent<Mana>();
+        float percent = mana.currentMana / mana.maxMana;
+        mana.UseMana(mana.currentMana);
+
+        var health = target.GetComponent<Health>();
+        health.AddHealth((int)(health.maxHealth * percent));
+
+        
     }
 }

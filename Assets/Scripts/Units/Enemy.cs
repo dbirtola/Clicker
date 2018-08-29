@@ -14,12 +14,24 @@ public class Enemy : Unit{
     public int level = 1;
     protected int experience = 0;
 
+    public float dropChanceMultiplier { get; private set; }
+    public float dropQualityMultiplier { get; private set; }
+
     GameObject floatingTextPrefab;
+
+    //This is used to determine how much health a mob should have. Weak mobs should have a multiplier of 0.5-1, while tankier mobs should have 1+
+    public float healthMultiplier = 1f;
+
+    //Used to determine how hard the mob hits. Take into consideration the speed of the enemy as well, Weak mobs should have a multiplier less than speed, stronger should have more than speed
+    public float damageMultiplier = 1f;
 
     protected override void Awake()
     {
         base.Awake();
         floatingTextPrefab = Resources.Load("FloatingText") as GameObject;
+
+        dropChanceMultiplier = 1f;
+        dropQualityMultiplier = 1f;
         //unitName = "Enemy";
     }
 
@@ -38,9 +50,23 @@ public class Enemy : Unit{
         }
     }
 
+    /*
     public virtual void SetLevel(int level)
     {
         this.level = level;
+    }*/
+
+    public virtual void SetLevel(int level)
+    {
+
+        //base.SetLevel(level);
+        this.level = level;
+        health.maxHealth = (int)(Mathf.Ceil(50 + 10 * level* Mathf.Pow(1.1f, level))*healthMultiplier);
+        health.health = health.maxHealth;
+        damage = (int)(Mathf.Ceil(4 + 1.5f *level) * damageMultiplier);
+
+        experience = (int)Mathf.Ceil(health.maxHealth / 10 + (health.maxHealth / 5) * Mathf.Pow(1.02f, level));
+
     }
 
 
@@ -49,6 +75,11 @@ public class Enemy : Unit{
     {
         base.OnDeath(killer);
  
+    }
+
+    public void AddExperienceMultiplier(float multiplier)
+    {
+        experience = (int)(experience * multiplier);
     }
 
     public float GetExperienceValue()
@@ -101,7 +132,7 @@ public class Enemy : Unit{
 
         FindObjectOfType<Player>().killedEnemyEvent.Invoke(this);
         FindObjectOfType<PlayerStats>().AddExperience(experience);
-        FindObjectOfType<PlayerInventory>().PickUpItem(FindObjectOfType<ItemFactory>().GetItemDrop(level));
+        FindObjectOfType<PlayerInventory>().PickUpItem(FindObjectOfType<ItemFactory>().GetItemDrop(this));
 
         Destroy(gameObject);
     }
@@ -125,5 +156,15 @@ public class Enemy : Unit{
     public List<PlayerPawn> GetPlayerPawns()
     {
         return new List<PlayerPawn>(FindObjectsOfType<PlayerPawn>());
+    }
+
+    public void AddDropQualityMultipler(float multi)
+    {
+        dropQualityMultiplier += multi;
+    }
+
+    public void AddDropChanceMultiplier(float multi)
+    {
+        dropChanceMultiplier += multi;
     }
 }

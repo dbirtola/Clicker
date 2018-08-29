@@ -10,19 +10,24 @@ public class SpikedKnuckles : Artifact {
     {
         base.Activate();
 
-        player.GetComponent<PlayerStats>().AddPersistentDamagePercentIncrease(effectStrength[level]);
+        player.GetComponent<PlayerStats>().AddPersistentDamagePercentIncrease(effectStrength[level-1]);
     }
 
     protected override void Deactivate()
     {
         base.Deactivate();
 
-        player.GetComponent<PlayerStats>().AddPersistentDamagePercentIncrease(-1 * effectStrength[level]);
+        player.GetComponent<PlayerStats>().AddPersistentDamagePercentIncrease(-1 * effectStrength[level-1]);
 
     }
 
     public override string GetEffectText(int level)
     {
-        return base.GetEffectText(level) + "%";
+        if(level == 0)
+        {
+            return "0%";
+        }
+
+        return effectStrength[level-1] * 100 + "%";
     }
 }

@@ -16,7 +16,7 @@ public class QuestFinishedEvent : UnityEvent<Quest>
 public enum QuestCategory
 {
     Beginner,
-    Milestone,
+    Repeatable,
     Progression
 }
 
@@ -93,6 +93,11 @@ public class Quest : MonoBehaviour {
         completed = questState.completed;
         rewardCollected = questState.rewardCollected;
 
+    }
+
+    public virtual string GetQuestName()
+    {
+        return questName;
     }
 
 }

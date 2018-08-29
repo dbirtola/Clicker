@@ -9,6 +9,8 @@ public class Boss : Enemy{
     public PlayerPawn playerPawn;
     protected BossFightManager bossFightManager;
 
+    
+
 	// Use this for initialization
 	protected override void Start () {
         base.Start();
@@ -17,7 +19,12 @@ public class Boss : Enemy{
   
 
     }
-	
+
+    public override void RpcAttack()
+    {
+        base.RpcAttack();
+        DisplayText("Attack!");
+    }
     public void TargetSquare(PositionSquare square)
     {
         square.SetColor(Color.red);

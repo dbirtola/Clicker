@@ -36,14 +36,34 @@ public class ItemInfoBox : MonoBehaviour {
         {
             Armor armor = item.GetComponent<Armor>();
 
-            mainStatText.text = "Armor: " + armor.GetArmorValue().ToString();
+            mainStatText.text = "Armor: " + armor.armorValue;
+            if(armor.refineLevel > 0)
+            {
+                mainStatText.text += "(+" + (armor.GetTotalArmorValue() - armor.armorValue).ToString() + ")";
+            }
             //healthText.text = "Health: " + armor.GetHealthValue().ToString();
         }
 
         if (item.GetComponent<Weapon>())
         {
             Weapon weapon = item.GetComponent<Weapon>();
-            mainStatText.text = "Damage: " + weapon.GetDamageValue().ToString();
+            mainStatText.text = "Damage: " + weapon.damageValue;
+
+            if (weapon.refineLevel > 0)
+            {
+                mainStatText.text += "(+" + (weapon.GetTotalDamageValue() - weapon.damageValue).ToString() + ")";
+            }
+        }
+
+        if (item.GetComponent<Ring>())
+        {
+            Ring ring = item.GetComponent<Ring>();
+            mainStatText.text = "Health: " + ring.healthValue;
+
+            if (ring.refineLevel > 0)
+            {
+                mainStatText.text += "(+" + (ring.GetTotalHealthValue() - ring.healthValue).ToString() + ")";
+            }
         }
        
         implicitPropertyText.text = item.GetImplicitProperty().GetDisplayString();

@@ -85,11 +85,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owningPlayer: {fileID: 0}
-  owningPawn: {fileID: 0}
+  owningUnit: {fileID: 0}
   abilityName: Divine Light
   description: Sacrifice all of your mana to heal yourself for the same percentage
     sacrificed.
-  cooldown: 0
+  cooldown: 45
   manaCost: 0
+  requiresQueue: 0
   timeOffCooldown: 0
   icon: {fileID: 21300000, guid: 71f364724196a434aa4d3c551cefd691, type: 3}

@@ -27,6 +27,32 @@ public class MineOreQuest : Quest {
         }
     }
 
+    public override string GetQuestName()
+    {
+        string val = "Mine " + required + " ";
+
+        switch (targetOre)
+        {
+            case 0:
+                val += "Iron Ore";
+                break;
+            case (OreTypes)1:
+                val += "Silver Ore";
+                break;
+            case (OreTypes)2:
+                val += "Gold Ore";
+                break;
+            case (OreTypes)3:
+                val += "Mithril Ore";
+                break;
+            case (OreTypes)4:
+                val += "Diamonds";
+                break;
+        }
+
+        return val;
+    }
+
     public override QuestState SaveQuestState()
     {
         QuestState qs = base.SaveQuestState();

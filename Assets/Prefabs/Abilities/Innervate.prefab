@@ -53,13 +53,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owningPlayer: {fileID: 0}
-  owningPawn: {fileID: 0}
+  owningUnit: {fileID: 0}
   abilityName: Innervate
-  description: Reduces damage output by 50% but doubles mana per tap for 10 seconds.
-  cooldown: 0
+  description: Reduces base damage by 50% but doubles mana per tap for 10 seconds.
+  cooldown: 45
   manaCost: 10
+  requiresQueue: 0
   timeOffCooldown: 0
   icon: {fileID: 21300000, guid: b811717bc2b77f545adf7753e4bb812c, type: 3}
+  duration: 10
 --- !u!114 &114492758981242040
 MonoBehaviour:
   m_ObjectHideFlags: 1

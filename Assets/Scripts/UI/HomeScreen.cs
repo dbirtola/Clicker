@@ -7,6 +7,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
+public enum Screens
+{
+    Home,
+    Inventory,
+    Stats,
+    Mining,
+    Crafting
+}
+
 public class HomeScreen : MonoBehaviour, IDragHandler, IEndDragHandler
 {
 
@@ -19,21 +28,45 @@ public class HomeScreen : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public ClickerNetworkManager clickerNetworkManager;
 
+    public Text endlessTowerLockedText;
+    public Button endlessTowerButton;
+
+    const float dragTolerance = 8f;
+
     void Awake()
     {
         clickerNetworkManager = FindObjectOfType<ClickerNetworkManager>();
     }
 
+    void Start()
+    {
+        if (FindObjectOfType<PlayerStats>().GetBaseStatStruct().level >= 20)
+        {
+            UnlockEndlessTower();
+        }else
+        {
+            FindObjectOfType<PlayerQuests>().endlessTowerUnlockedEvent.AddListener(UnlockEndlessTower);
+        }
+    }
 
     public void GoToFightScene(int area)
     {
+        PersistentHud.persistentHud.CoverSceneTransition();
+
         clickerNetworkManager.SetDestinationArea(area);
         NetworkManager.singleton.ServerChangeScene("FightScene");
     }
 
     public void GoToBossScene()
     {
+        PersistentHud.persistentHud.CoverSceneTransition();
+
         NetworkManager.singleton.ServerChangeScene("BossScene");
+    }
+
+    public Screens GetFocusedScreen()
+    {
+        return (Screens)focusedScreenIndex;
     }
 
     public void GoToCraftScene()
@@ -46,9 +79,24 @@ public class HomeScreen : MonoBehaviour, IDragHandler, IEndDragHandler
 
     }
 
+    void UnlockEndlessTower()
+    {
+        endlessTowerButton.interactable = true;
+        endlessTowerLockedText.gameObject.SetActive(false);
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
-        if(dragRoutine != null)
+        /*
+        if (Mathf.Abs(eventData.delta.x) <= dragTolerance)
+        {
+            return;
+        }
+
+        Debug.Log("Delta x: " + eventData.delta.x);
+        */
+
+        if (dragRoutine != null)
         {
             StopCoroutine(dragRoutine);
         }

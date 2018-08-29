@@ -13,6 +13,11 @@ public class ItemEquippedEvent : UnityEvent<Item>
 
 }
 
+public class ItemPickedUpEvent : UnityEvent<Item, bool>
+{
+
+}
+
 [System.Serializable]
 public class PlayerInventoryData
 {
@@ -27,12 +32,15 @@ public class PlayerInventory : MonoBehaviour {
 
     public InventoryModifiedEvent inventoryModifiedEvent;
     public ItemEquippedEvent itemEquippedEvent;
+    public ItemPickedUpEvent itemPickedUpEvent;
+
 
     public Weapon equippedWeapon { get; private set; }
     public Armor equippedArmor { get; private set; }
     public Armor equippedGloves { get; private set; }
     public Armor equippedBoots { get; private set; }
     public Armor equippedHelmet { get; private set; }
+    public Ring equippedRing { get; private set; }
 
     List<Item> items;
 
@@ -46,11 +54,17 @@ public class PlayerInventory : MonoBehaviour {
         items = new List<Item>();
         inventoryModifiedEvent = new InventoryModifiedEvent();
         itemEquippedEvent = new ItemEquippedEvent();
+        itemPickedUpEvent = new ItemPickedUpEvent();
     }
 
     public Weapon GetWeapon()
     {
         return equippedWeapon;
+    }
+
+    public Ring GetRing()
+    {
+        return equippedRing;
     }
 
     public Armor GetArmor()
@@ -82,7 +96,7 @@ public class PlayerInventory : MonoBehaviour {
         l.Add(equippedHelmet);
         l.Add(equippedGloves);
         l.Add(equippedBoots);
-        //l.Add(equippedRing);
+        l.Add(equippedRing);
 
         return l;
     }
@@ -97,10 +111,13 @@ public class PlayerInventory : MonoBehaviour {
     {
         if (addItem(item))
         {
-            if ((int)item.GetQuality() <= autoSellQuality)
+            bool autoSell = (int)item.GetQuality() <= autoSellQuality;
+            if (autoSell)
             {
                 SellItem(item);
             }
+
+            itemPickedUpEvent.Invoke(item, autoSell);
             return true;
         }else
         {
@@ -149,7 +166,11 @@ public class PlayerInventory : MonoBehaviour {
     public bool EquipItem(Item item)
     {
         //Check if usable
+        if (GetAllEquipped().Contains(item))
+        {
+            return false;
 
+        }
         RemoveItem(item);
 
 
@@ -166,6 +187,18 @@ public class PlayerInventory : MonoBehaviour {
             equippedWeapon = item.GetComponent<Weapon>();
             equippedWeapon.Equip();
 
+        }
+
+        if (item.GetComponent<Ring>())
+        {
+            if(equippedRing != null)
+            {
+                equippedRing.Unequip();
+            }
+
+            temp = equippedRing;
+            equippedRing = item.GetComponent<Ring>();
+            equippedRing.Equip();
         }
 
         if (item.GetComponent<Armor>())

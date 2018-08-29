@@ -60,6 +60,7 @@ public class BossFightManager : NetworkBehaviour {
     public void SpawnBoss()
     {
         var boss = Instantiate(elderWizardPrefab);
+        boss.SetLevel(15);
         NetworkServer.Spawn(boss.gameObject);
         RpcNotifyBossSpawn(boss.gameObject);
 
@@ -93,5 +94,15 @@ public class BossFightManager : NetworkBehaviour {
 
 
         FindObjectOfType<CombatHud>().Init(0);
+    }
+
+
+
+    public void BackToMainMenu()
+    {
+        PersistentHud.persistentHud.CoverSceneTransition();
+
+        NetworkManager.singleton.ServerChangeScene("HomeScene");
+
     }
 }

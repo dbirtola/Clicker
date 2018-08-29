@@ -24,20 +24,26 @@ public class Weapon : Item {
     public override void Equip()
     {
         base.Equip();
-        playerStats.AddBonusDamage(damageValue);
+        playerStats.AddBonusDamage(GetTotalDamageValue());
     }
 
     public override void Unequip()
     {
         base.Unequip();
-        playerStats.AddBonusDamage(-1*damageValue);
+        playerStats.AddBonusDamage(-1*GetTotalDamageValue());
     }
 
+    public override void SetLevel(int level)
+    {
+        base.SetLevel(level);
+        damageValue = 3 + (int)(1.5f * level);
+    }
+
+    public int GetTotalDamageValue()
+    {
+        return damageValue + 3 * refineLevel;
+    }
 
     
-    public int GetDamageValue()
-    {
-        return damageValue;
-    }
 
 }

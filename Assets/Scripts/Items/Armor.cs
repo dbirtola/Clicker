@@ -34,14 +34,14 @@ public class Armor : Item {
     public override void Equip()
     {
         base.Equip();
-        playerStats.AddBonusArmor(armorValue);
+        playerStats.AddBonusArmor(GetTotalArmorValue());
         //playerStats.AddBonusHealth(healthValue);
     }
 
     public override void Unequip()
     {
         base.Unequip();
-        playerStats.AddBonusArmor(-1 * armorValue);
+        playerStats.AddBonusArmor(-1 * GetTotalArmorValue());
         //playerStats.AddBonusHealth(-1 * healthValue);
     }
 
@@ -51,9 +51,9 @@ public class Armor : Item {
 	}
 
     
-    public int GetArmorValue()
+    public int GetTotalArmorValue()
     {
-        return armorValue;
+        return armorValue + 3 * refineLevel;
     }
 
    // public int GetHealthValue()

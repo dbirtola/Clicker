@@ -8,9 +8,12 @@ public class PlayerQuests : MonoBehaviour {
 
     public QuestFinishedEvent questFinishedEvent { get; private set; }
 
+    public UnityEvent endlessTowerUnlockedEvent;
+
     public GameObject questObject;
     public Quest[] quests;
 
+    bool endlessTowerUnlocked = false;
 
     //Temporary list for testing presistance
     public List<QuestState> questStates;
@@ -18,13 +21,13 @@ public class PlayerQuests : MonoBehaviour {
     void Awake()
     {
         questFinishedEvent = new QuestFinishedEvent();
+        endlessTowerUnlockedEvent = new UnityEvent();
+
         quests = questObject.GetComponents<Quest>();
-    }
 
-    void Update()
-    {
 
     }
+
 
 
     void Start()
@@ -33,9 +36,36 @@ public class PlayerQuests : MonoBehaviour {
         {
             q.questFinishedEvent.AddListener(questFinishedEvent.Invoke);
         }
+
+
+        GetComponent<PersistanceManager>().persistantDataLoadedEvent.AddListener(() =>
+        {
+            if (GetComponent<PlayerStats>().GetBaseStatStruct().level >= 20)
+            {
+                UnlockEndlessTower();
+
+            }
+            else
+            {
+                GetComponent<PlayerStats>().levelUpEvent.AddListener((int lvl) =>
+                {
+                    if (lvl >= 20)
+                    {
+                        UnlockEndlessTower();
+                    }
+                });
+            }
+        });
     }
 
-    
+
+    void UnlockEndlessTower()
+    {
+        endlessTowerUnlocked = true;
+        endlessTowerUnlockedEvent.Invoke();
+
+    }
+
 
     public void LoadQuestState(List<QuestState> loadStates)
     {

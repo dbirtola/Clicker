@@ -11,6 +11,8 @@ public class QuestFinishedPopup : MonoBehaviour {
 
     public Text questNameText;
 
+    public Animation questNotificationAnimation;
+
     public Queue<string> questQueue;
     public void Awake()
     {
@@ -19,7 +21,7 @@ public class QuestFinishedPopup : MonoBehaviour {
 
     public void Show(string questName)
     {
-        questNameText.text = questName;
+        questNameText.text = "Finished Quest: " + questName;
         gameObject.SetActive(true);
 
         if(questQueue.Count == 0)
@@ -30,10 +32,11 @@ public class QuestFinishedPopup : MonoBehaviour {
             questQueue.Enqueue(questName);
         }
     }
-    
+
 
     IEnumerator scrollRight()
     {
+        /*
         RectTransform rt = GetComponent<RectTransform>();
 
         Vector2 step = new Vector2(1, 0) * slideSpeed;
@@ -53,8 +56,20 @@ public class QuestFinishedPopup : MonoBehaviour {
             yield return null;
         }
         rt.offsetMax = new Vector2(-375, rt.offsetMax.y);
+        */
+        questNotificationAnimation["QuestNotificationSlide"].time = 0;
+        questNotificationAnimation["QuestNotificationSlide"].speed = 1;
+        questNotificationAnimation.Play("QuestNotificationSlide");
 
-        if(questQueue.Count == 0)
+        yield return new WaitForSeconds(holdDuration);
+
+        questNotificationAnimation["QuestNotificationSlide"].time = questNotificationAnimation["QuestNotificationSlide"].length;
+        questNotificationAnimation["QuestNotificationSlide"].speed = -1;
+        questNotificationAnimation.Play("QuestNotificationSlide");
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (questQueue.Count == 0)
         {
             gameObject.SetActive(false);
         }else

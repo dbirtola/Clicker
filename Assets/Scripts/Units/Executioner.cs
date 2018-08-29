@@ -12,7 +12,7 @@ public class Executioner : Enemy {
     {
         base.Awake();
         //Execute move is interupted if the enemy takes damage
-        GetComponent<Health>().tookDamageEvent.AddListener((int dmg) => {
+        GetComponent<Health>().tookDamageEvent.AddListener((GameObject inst, int dmg) => {
             if(executeRoutine != null)
             {
                 StopCoroutine(executeRoutine);

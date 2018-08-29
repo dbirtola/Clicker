@@ -25,6 +25,7 @@ public class MiningRock : MonoBehaviour {
     void Start()
     {
         StartCoroutine(GenerateOres());
+        GetComponent<Button>().onClick.AddListener(playerCrafting.MineRock);
         playerCrafting.materialMinedEvent.AddListener(CreateText);
     }
 

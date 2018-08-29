@@ -101,15 +101,18 @@ public class DevTools : MonoBehaviour {
 
     public void SpawnItem()
     {
+        if(iLvlField.text == null)
+        {
+            return;
+        }
+
         ItemFactory iFactory = FindObjectOfType<ItemFactory>();
         var item = iFactory.SpawnItemOfType(itemSlotDropdown.captionText.text);
         Debug.Log("Caption text was: " + itemSlotDropdown.captionText.text);
         item.SetQuality(itemQualityDropdown.value);
 
-        if(iLvlField.text != null)
-        {
-            item.itemLevel = int.Parse(iLvlField.text);
-        }
+        
+        item.SetLevel(int.Parse(iLvlField.text));
 
         item.RollProperties(item.itemLevel);
 

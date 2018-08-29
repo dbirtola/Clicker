@@ -19,6 +19,7 @@ public class ArtifactsPanel : MonoBehaviour {
     public GameObject confirmationBox;
     public Text confirmationArtifactName;
     public Text confirmationArtifactCost;
+    public Button confirmationAccept;
 
     public void Awake()
     {
@@ -58,6 +59,13 @@ public class ArtifactsPanel : MonoBehaviour {
         selectedArtifact = artifact;
         confirmationArtifactName.text = artifact.artifactName;
         confirmationArtifactCost.text = "for " + artifact.GetCostToUpgrade().ToString() + " points";
+        if(artifact.GetCostToUpgrade() > FindObjectOfType<PlayerArtifacts>().artifactPoints)
+        {
+            confirmationAccept.interactable = false;
+        }else
+        {
+            confirmationAccept.interactable = true;
+        }
         confirmationBox.SetActive(true);
         
     }

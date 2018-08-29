@@ -33,15 +33,20 @@ public class PlayerArtifacts : MonoBehaviour {
         artifacts = artifactHolder.GetComponents<Artifact>();
     }
 
+    public void AddArtifactPoints(int points)
+    {
+        artifactPoints += points;
+    }
 
     public bool PurchaseArtifact(Artifact artifact)
     {
-        if (artifact.level == ARTIFACT_MAX_LEVEL)
+        if (artifact.level == ARTIFACT_MAX_LEVEL || artifactPoints < artifact.GetCostToUpgrade())
         {
             return false;
         }
 
         Debug.Log("Purchasing " + artifact.artifactName);
+        artifactPoints -= artifact.GetCostToUpgrade();
         artifact.IncreaseLevel();
         artifactsChangedEvent.Invoke(artifact);
 

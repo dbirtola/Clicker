@@ -6,10 +6,7 @@ public class HealingLight : Ability {
 
 
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
     public override void Use(GameObject target)
     {

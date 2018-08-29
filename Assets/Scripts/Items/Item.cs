@@ -105,6 +105,11 @@ public class Item : MonoBehaviour {
         return isEquipped;
     }
 
+    public virtual void IncreaseRefineLevel()
+    {
+        refineLevel++;
+    }
+
     public void RollProperties(int itemLevel)
     {
         properties.Clear();
@@ -229,6 +234,12 @@ public class Item : MonoBehaviour {
         return itemQuality;
     }
 
+    public virtual void SetLevel(int level)
+    {
+        itemLevel = level;
+    }
+
+    
 
     
         //Probably a better and safer way to do this than string comparison, but this works for now

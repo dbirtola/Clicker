@@ -33,8 +33,9 @@ public class PlayerPawn : Unit {
        
 
         DontDestroyOnLoad(this);
-
+        
     }
+
 	
 
     protected override void Start()
@@ -44,12 +45,14 @@ public class PlayerPawn : Unit {
             Color c = GetComponent<SpriteRenderer>().material.color;
             c.a = 0.5f;
             GetComponent<SpriteRenderer>().material.color = c;
+        }else
+        {
+            aboutToTakeDamageEvent.AddListener(CalculateDamageReduction);
         }
     }
 
     public override void OnStartLocalPlayer()
     {
-        Debug.Log("Player Pawn set to: " + gameObject);
 
         player = FindObjectOfType<Player>();
         player.SetPlayerPawn(this);
@@ -59,8 +62,20 @@ public class PlayerPawn : Unit {
 
 
 
+    public void CalculateDamageReduction(DamageInfo damage)
+    {
+        if(statStruct.armor <= 0)
+        {
+            return;
+        }
+        float damageTakenPercent = 1f / (1.3f * Mathf.Pow(1.001f,statStruct.armor));
+
+        damage.damage = (int)(damage.damage - damage.damage * (1f-damageTakenPercent));
+    }
+
+
     //childindex == -1 refers to hitting the base object
-   //[Command]
+    //[Command]
     public void CmdAttack(GameObject target, int childIndex, int damage)
     {
        // Debug.Log("Hitting child: " + childIndex);
@@ -76,7 +91,7 @@ public class PlayerPawn : Unit {
 
             if(statStruct.poisonDamage > 0)
             {
-                CmdApplyPoisonDamage(unit.gameObject);
+                ApplyPoisonDamage(unit.gameObject);
             }
         }
         /*
@@ -90,8 +105,8 @@ public class PlayerPawn : Unit {
 
     
 
-    [Command]
-    void CmdApplyPoisonDamage(GameObject target)
+    //[Command]
+    void ApplyPoisonDamage(GameObject target)
     {
         var debuff = target.GetComponent<Debuffs>();
 
@@ -134,7 +149,7 @@ public class PlayerPawn : Unit {
             currentEffect.RefreshDuration();
         }else
         {
-            debuff.ServerAddDamageOverTimeEffect(currentEffect);
+            debuff.AddDamageOverTimeEffect(currentEffect);
         }
         
 

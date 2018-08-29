@@ -25,6 +25,8 @@ public class PlayerAbilities : MonoBehaviour {
     public List<Ability> equippedAbilities;
     public List<Ability> availableAbilities;
 
+    public GameObject abilityHolder;
+
 	void Awake()
     {
         abilityGainedEvent = new AbilityGainedEvent();
@@ -35,40 +37,42 @@ public class PlayerAbilities : MonoBehaviour {
         }
         availableAbilities = new List<Ability>();
 
-        var ab1 = AddAbility(FindObjectOfType<HeavySlash>());
-        abilityGainedEvent.Invoke(ab1);
 
-        ab1 = AddAbility(FindObjectOfType<Berserk>());
-        abilityGainedEvent.Invoke(ab1);
-
-        ab1 = AddAbility(FindObjectOfType<Cleave>());
-        abilityGainedEvent.Invoke(ab1);
-
-        ab1 = AddAbility(FindObjectOfType<Gouge>());
-        abilityGainedEvent.Invoke(ab1);
-
-        ab1 = AddAbility(FindObjectOfType<HealingLight>());
-        abilityGainedEvent.Invoke(ab1);
-
-        ab1 = AddAbility(FindObjectOfType<FrostBolt>());
-        abilityGainedEvent.Invoke(ab1);
-
-        ab1 = AddAbility(FindObjectOfType<DoubleSwing>());
-        abilityGainedEvent.Invoke(ab1);
     }
 
   
+    void Start()
+    {
 
+        foreach(Ability ab in abilityHolder.GetComponentsInChildren<Ability>(true))
+        {
+            AddAbility(ab);
+        }
+        /*
+        var ab1 = AddAbility(FindObjectOfType<HeavySlash>());
+        ab1 = AddAbility(FindObjectOfType<Berserk>());
+        ab1 = AddAbility(FindObjectOfType<Cleave>());
+        ab1 = AddAbility(FindObjectOfType<Gouge>());
+        ab1 = AddAbility(FindObjectOfType<HealingLight>());
+        ab1 = AddAbility(FindObjectOfType<FrostBolt>());
+        ab1 = AddAbility(FindObjectOfType<DoubleSwing>());
+        ab1 = AddAbility(FindObjectOfType<DivineLight>());
+        ab1 = AddAbility(FindObjectOfType<Innervate>());
+        */
+    }
 
     //Return type not useful, just here for testing should change tho
     public Ability AddAbility(Ability ability)
     {
-        if (availableAbilities.Contains(ability))
+        if (availableAbilities.Contains(ability) || ability == null)
         {
+            Debug.Log("Not adding");
             return null;
         }
 
         availableAbilities.Add(ability);
+
+        abilityGainedEvent.Invoke(ability);
 
         return ability;
     }

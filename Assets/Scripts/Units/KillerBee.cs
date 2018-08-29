@@ -16,6 +16,7 @@ public class KillerBee : Enemy{
         weakSpot = GetComponentInChildren<EnemyComponent>();
 	}
 
+    /*
     public override void SetLevel(int level)
     {
         base.SetLevel(level);
@@ -25,6 +26,7 @@ public class KillerBee : Enemy{
         experience = (int)Mathf.Ceil(health.maxHealth / 9 + (health.maxHealth / 5) * Mathf.Pow(1.02f, level));
 
     }
+    */
 
     protected override void Start()
     {

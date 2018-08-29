@@ -5,7 +5,7 @@ using UnityEngine;
 public class Slime: Enemy{
 
 
-
+    /*
     public override void SetLevel(int level)
     {
         base.SetLevel(level);
@@ -17,5 +17,6 @@ public class Slime: Enemy{
 
 
     }
+    */
 
 }

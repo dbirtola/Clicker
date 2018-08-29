@@ -98,18 +98,14 @@ public class Debuffs : NetworkBehaviour {
      * Damage over time *
      ********************/
 
-    public void AddDamageOverTimeEffect(GameObject instigator, int damage, float period, float duration)
-    {
-        CmdAddDamageOverTimeEffect(instigator, damage, period, duration);
-    }
+    //public void AddDamageOverTimeEffect(GameObject instigator, int damage, float period, float duration)
+    //{
+      //  CmdAddDamageOverTimeEffect(instigator, damage, period, duration);
+    //}
 
     
-    public void ServerAddDamageOverTimeEffect(DamageOverTimeEffect dot)
+    public void AddDamageOverTimeEffect(DamageOverTimeEffect dot)
     {
-        if (!isServer)
-        {
-            return;
-        }
 
         damageOverTimeEffects.Add(dot);
         StartCoroutine(StartDOT(dot));
@@ -123,9 +119,8 @@ public class Debuffs : NetworkBehaviour {
 
         Debug.Log("Added");
     }
-
-    [Command]
-    public void CmdAddDamageOverTimeEffect(GameObject instigator, int damage, float period, float duration)
+    
+    public void AddDamageOverTimeEffect(GameObject instigator, int damage, float period, float duration)
     {
         DamageOverTimeEffect dot = new DamageOverTimeEffect(gameObject, damage, period, duration);
         dot.instigator = instigator;

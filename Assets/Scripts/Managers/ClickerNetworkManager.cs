@@ -9,6 +9,8 @@ public class ClickerNetworkManager : NetworkManager {
 
     static ClickerNetworkManager clickerNetworkManager;
 
+    float minimumTransitionTime = 2f;
+
 	// Use this for initialization
 	void Awake () {
 
@@ -40,32 +42,48 @@ public class ClickerNetworkManager : NetworkManager {
         if(sceneName == "FightScene")
         {
             //FindObjectOfType<FightManager>().startCombat();
-            StartCoroutine(theThing());
+            StartCoroutine(FightTransition());
         }
         if (sceneName == "HomeScene")
         {
             FindObjectOfType<InventoryUI>().Refresh();
+            StartCoroutine(HomeTransition());
         }
         if(sceneName == "BossScene")
         {
-            StartCoroutine(theBossThing());
+            StartCoroutine(BossTransition());
 
         }
+
     }
 
-    IEnumerator theThing()
+    //The delays below are added for two reasons
+    //One, it lets the networked code catch up and most likely all clients will be loaded in by the time the delay is over
+    //There is most likely a better way to handle this, possibly with Commands signifying that each client has loaded succesfully. Should do that later
+    //The other reason is if someone loads too quickly, they won't have time to see the loading tip. So in a sense it is also an artificial load time, short enough to
+    //Not bother people but long enough to let you read the tip hopefully
+    IEnumerator HomeTransition()
     {
-        yield return new WaitForSeconds(0.2f);
+
+        yield return new WaitForSeconds(minimumTransitionTime);
+
+        PersistentHud.persistentHud.EndSceneTransition();
+    }
+    IEnumerator FightTransition()
+    {
+        yield return new WaitForSeconds(minimumTransitionTime);
         FindObjectOfType<FightManager>().SetArea(destinationArea);
         FindObjectOfType<FightManager>().startCombat();
 
+        PersistentHud.persistentHud.EndSceneTransition();
     }
 
-    IEnumerator theBossThing()
+    IEnumerator BossTransition()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(minimumTransitionTime);
         FindObjectOfType<BossFightManager>().ServerStartFight();
 
+        PersistentHud.persistentHud.EndSceneTransition();
     }
 
     public void ConnectAsClient()

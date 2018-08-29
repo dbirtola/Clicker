@@ -188,11 +188,11 @@ public class PlayerCrafting : MonoBehaviour {
             if (item.GetEquipped())
             {
                 item.Unequip();
-                item.refineLevel++;
+                item.IncreaseRefineLevel();
                 item.Equip();
             }else
             {
-                item.refineLevel++;
+                item.IncreaseRefineLevel();
             }
 
             itemRefinedEvent.Invoke(item);

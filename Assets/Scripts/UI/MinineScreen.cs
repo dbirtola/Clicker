@@ -18,16 +18,16 @@ public class MinineScreen : MonoBehaviour {
 
     public void Start()
     {
-        playerCrafting.materialGainedEvent.AddListener(UpdateMaterialsText);
+        //playerCrafting.materialGainedEvent.AddListener(UpdateMaterialsText);
         playerCrafting.craftingLevelUpEvent.AddListener(UpdateCraftingLevel);
-
+        playerCrafting.materialMinedEvent.AddListener((int mats)=> { UpdateExperienceSlider(); });
         playerCrafting.GetComponent<PersistanceManager>().persistantDataLoadedEvent.AddListener(Refresh);
     }
 
     void Refresh()
     {
 
-        materialsText.text = playerCrafting.materials.ToString();
+        //materialsText.text = playerCrafting.materials.ToString();
         craftingLevelText.text = "Level: " + playerCrafting.craftingLevel;
         UpdateExperienceSlider();
     }

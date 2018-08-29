@@ -17,6 +17,11 @@ public class KillMonstersQuest : Quest {
         playerController.killedEnemyEvent.AddListener(OnEnemyKilled);
     }
 
+    public override string GetQuestName()
+    {
+        return "Kill " + targetEnemy.unitName + "s";
+    }
+
     public void OnEnemyKilled(Enemy enemy)
     {
         Debug.Log("Checking type");

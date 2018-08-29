@@ -22,7 +22,7 @@ public class DamageInfo
     }
 }
 
-public class TookDamageEvent : UnityEvent<int>{
+public class TookDamageEvent : UnityEvent<GameObject, int>{
 
 }
 
@@ -40,8 +40,7 @@ public class Health : NetworkBehaviour {
 
     public bool showDamage = true;
     public FloatingText floatingTextPrefab;
-
-    public DamageEvent aboutToTakeDamageEvent;
+    
     public TookDamageEvent tookDamageEvent;
     
 
@@ -50,7 +49,7 @@ public class Health : NetworkBehaviour {
         tookDamageEvent = new TookDamageEvent();
         floatingTextPrefab = (Resources.Load("FloatingText") as GameObject).GetComponent<FloatingText>();
 
-        tookDamageEvent.AddListener(DisplayDamage);
+        //tookDamageEvent.AddListener(DisplayDamage);
     }
 
 
@@ -89,8 +88,15 @@ public class Health : NetworkBehaviour {
     [ClientRpc]
     void RpcTookDamage(GameObject instigator, int damage)
     {
-        tookDamageEvent.Invoke(damage);
-        instigator.GetComponent<Unit>().dealtDamageEvent.Invoke(gameObject, damage);
+        tookDamageEvent.Invoke(instigator, damage);
+        //If instigator is null they probably died
+        if(instigator != null)
+        {
+            instigator.GetComponent<Unit>().dealtDamageEvent.Invoke(gameObject, damage);
+        }else
+        {
+            Debug.Log("Instigator is null"); //Replace soon, but this is needed right now to remind me that Dots dont require the instigator set in the constructor which is bad
+        }
     }
 
 

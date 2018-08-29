@@ -94,7 +94,7 @@ public class Player : NetworkBehaviour {
                 if(ec != null) { 
 
                     tappedEnemyEvent.Invoke(ec.baseObject);
-                }else
+                }else if(hit.collider.gameObject.GetComponent<Enemy>() != null)
                 {
                     tappedEnemyEvent.Invoke(hit.collider.gameObject);
                 }
@@ -104,8 +104,7 @@ public class Player : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.O)) 
         {
             ItemFactory iFactory = FindObjectOfType<ItemFactory>();
-
-            GetComponent<PlayerInventory>().PickUpItem(iFactory.GetItemDrop(0));
+            GetComponent<PlayerInventory>().PickUpItem(iFactory.GetItemDrop(1));
         }
 	}
 
@@ -122,6 +121,8 @@ public class Player : NetworkBehaviour {
 
     public void Attack(GameObject target)
     {
+
+        
         int damage = playerStats.GetNextTapDamage();
 
         //Might want to move crit logic on to the player pawn since it makes more sense
@@ -137,9 +138,13 @@ public class Player : NetworkBehaviour {
         {
             childIndex = target.GetComponent<EnemyComponent>().childIndex;
             pPawn.CmdAttack(target.GetComponent<EnemyComponent>().baseObject, childIndex, damage);
-        }else
+            target.GetComponent<EnemyComponent>().OnHit(damage);
+        }else if(target.GetComponent<Enemy>())
         {
             pPawn.CmdAttack(target, childIndex, damage);
+        }else
+        {
+            return;
         }
 
         dealtTapDamageEvent.Invoke(damage, target);

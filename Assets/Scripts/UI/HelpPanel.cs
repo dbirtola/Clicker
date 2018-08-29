@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public enum ExpandDirection
 {
     RightToLeft,
-    LeftToRight
+    LeftToRight,
+    TopToBottom,
+    BottomToTop
 }
 
 public class HelpPanel : MonoBehaviour {

@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owningPlayer: {fileID: 0}
-  owningPawn: {fileID: 0}
-  abilityName: Double Swing
+  owningUnit: {fileID: 0}
+  abilityName: Frenzy
   description: Your taps attack twice each for the next 7 seconds.
   cooldown: 15
   manaCost: 45

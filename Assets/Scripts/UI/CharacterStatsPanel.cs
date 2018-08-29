@@ -25,7 +25,8 @@ public class CharacterStatsPanel : MonoBehaviour {
         playerInventory = FindObjectOfType<PlayerInventory>();
         playerInventory.itemEquippedEvent.AddListener(Refresh);
 
-        Refresh(null);
+        FindObjectOfType<PersistanceManager>().persistantDataLoadedEvent.AddListener(() => { Refresh(null); });
+       // Refresh(null);
 	}
 	
 	public void Refresh(Item item)

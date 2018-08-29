@@ -62,6 +62,7 @@ public class PlayerStats : MonoBehaviour {
     //until combat starts and the pawn is told to initialize its stats.
     public PlayerStatStruct bonusStats;
 
+    public LevelUpEvent gainedExperienceEvent;
     public LevelUpEvent levelUpEvent;
 
 
@@ -73,6 +74,7 @@ public class PlayerStats : MonoBehaviour {
     void Awake ()
     {
         levelUpEvent = new LevelUpEvent();
+        gainedExperienceEvent = new LevelUpEvent();
         damageMultipliers = new List<DamageMultiplierStruct>();
 
         //Initializing all base stats
@@ -80,7 +82,7 @@ public class PlayerStats : MonoBehaviour {
         baseStats.currentExperience = 0;
 
         baseStats.damage = 3;
-        baseStats.maxHealth = 500;
+        baseStats.maxHealth = 1500;
         baseStats.armor = 0;
         baseStats.criticalChance = 0;
         baseStats.criticalDamageBonus = 1;
@@ -119,6 +121,8 @@ public class PlayerStats : MonoBehaviour {
         bonusStats.towerStartBonus = 0;
 
     }
+
+
 
     //1 = 100%
     public void AddPersistentDamagePercentIncrease(float percent)
@@ -229,13 +233,14 @@ public class PlayerStats : MonoBehaviour {
     public void AddExperience(int experience)
     {
         baseStats.currentExperience += (int)(Mathf.Ceil(experience * GetExperienceMultiplier()));
+        gainedExperienceEvent.Invoke(experience);
 
         while (baseStats.currentExperience > GetExpTillLevel())
         {
             if (baseStats.currentExperience > GetExpTillLevel())
             {
                 baseStats.currentExperience -= GetExpTillLevel();
-                baseStats.level += 1;
+                SetLevel(baseStats.level + 1);
                 levelUpEvent.Invoke(baseStats.level);
             }
         }
@@ -245,7 +250,14 @@ public class PlayerStats : MonoBehaviour {
     public void SetLevel(int level)
     {
         baseStats.level = level;
+        CalculateBaseStats();
         levelUpEvent.Invoke(baseStats.level);
+    }
+
+    public void CalculateBaseStats()
+    {
+        baseStats.damage = 1 + baseStats.level * 2;
+        baseStats.maxHealth = 100 + 20 * baseStats.level * 2;
     }
 
     //= 100 + (CharacterLevel - 1) * 30 * 1.07^CharacterLevel
@@ -371,7 +383,6 @@ public class PlayerStats : MonoBehaviour {
         PlayerStatData psd = new PlayerStatData();
         psd.experience = baseStats.currentExperience;
         psd.level = baseStats.level;
-
         return psd;
     }
 
@@ -379,5 +390,8 @@ public class PlayerStats : MonoBehaviour {
     {
         baseStats.currentExperience = playerStatData.experience;
         baseStats.level = playerStatData.level;
+        CalculateBaseStats();
+
+
     }
 }

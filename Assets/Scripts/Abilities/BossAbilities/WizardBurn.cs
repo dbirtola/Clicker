@@ -11,7 +11,7 @@ public class WizardBurn : Ability {
 
         dot = new DamageOverTimeEffect(target, 50, 0.5f, 10);
 
-        target.GetComponent<Debuffs>().ServerAddDamageOverTimeEffect(dot);
+        target.GetComponent<Debuffs>().AddDamageOverTimeEffect(dot);
         target.GetComponent<PlayerPawn>().movedSquaresEvent.AddListener(RefreshDamage);
     }
 

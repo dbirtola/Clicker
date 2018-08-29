@@ -59,6 +59,7 @@ public class InventoryUI : MonoBehaviour {
         UpdateButtonWithItem(bootsSlot, playerInventory.GetBoots());
         UpdateButtonWithItem(helmetSlot, playerInventory.GetHelmet());
         UpdateButtonWithItem(weaponSlot, playerInventory.GetWeapon());
+        UpdateButtonWithItem(ringSlot, playerInventory.GetRing());
 
         for (int i = 0; i < itemButtons.Length; i++)
         {
@@ -76,15 +77,17 @@ public class InventoryUI : MonoBehaviour {
 
     void UpdateButtonWithItem(Button button, Item item)
     {
+        button.GetComponent<InventoryItemButton>().UpdateButtonWithItem(item);
+        /*
         if(item == null)
         {
-            button.onClick.RemoveAllListeners();
+            //button.onClick.RemoveAllListeners();
             //Handle null item
             button.GetComponentInChildren<Text>().text = null;
             button.image.sprite = emptyIcon;
             return;
         }
-        button.onClick.RemoveAllListeners();
+       // button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => ShowItemInfo(item));
 
 
@@ -92,5 +95,7 @@ public class InventoryUI : MonoBehaviour {
         button.GetComponent<InventoryItemButton>().SetItem(item);
         button.GetComponentInChildren<Text>().text = item.itemName; //Move to inside the box
         button.image.sprite = item.itemIcon;
+
+    */
     }
 }

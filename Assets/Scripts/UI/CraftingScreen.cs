@@ -26,6 +26,9 @@ public class CraftingScreen : MonoBehaviour {
     public Text addPropertyText;
     public Text removePropertyText;
 
+
+    public Text materialsText;
+
     public Item selectedItem;
     
 
@@ -38,6 +41,15 @@ public class CraftingScreen : MonoBehaviour {
         playerCrafting.itemSelectedForCraftingEvent.AddListener(UpdateCraftingInfo);
         playerCrafting.itemRefinedEvent.AddListener(UpdateCraftingInfo);
 
+        /*
+        playerCrafting.materialGainedEvent.AddListener(
+            (int num) =>
+            {
+                materialsText.text = "Materials: " + playerCrafting.materials;
+            }
+        );
+        */
+
     }
 
 
@@ -49,6 +61,7 @@ public class CraftingScreen : MonoBehaviour {
         refineCostText.text = playerCrafting.GetRefineCost(item).ToString();
         addPropertyText.text = playerCrafting.GetAddRandomPropertyCost(item).ToString();
         removePropertyText.text = playerCrafting.GetRemovePropertyCost(item).ToString();
+        UpgradePropertiesCostText.text = playerCrafting.GetPropertyUpgradeCost(item).ToString();
 
         if(playerCrafting.GetRefineCost(selectedItem) > playerCrafting.materials)
         {

@@ -28,6 +28,8 @@ public struct AreaInfoStruct
 
 public class FightManager : NetworkBehaviour {
 
+    const float chanceToSpawnFromPreviousArea = 0.4f;
+
     EnemySpawner enemySpawner;
     //Player player;
 
@@ -107,14 +109,50 @@ public class FightManager : NetworkBehaviour {
 
     public void SpawnNextWave()
     {
-        int numEnemies = Random.Range(1, 4);
+        int numEnemies = 1;
+        //30% chance for 2 enemies
+        if(Random.Range(0, 3) == 0)
+        {
+            numEnemies++;
+            //10% chance for 3 enemies
+            if(Random.Range(0, 3) == 0)
+            {
+                numEnemies++;
+            }
+        }
+
         List<Enemy> spawnedEnemies = new List<Enemy>();
 
         enemiesAlive += numEnemies;
 
         for (int i = 0; i < numEnemies; i++)
         {
-            var enemy = enemySpawner.SpawnEnemy(currentArea);
+            Enemy enemy = null;
+            int level = Random.Range(currentArea.minLevel, currentArea.maxLevel + 1);
+
+            //Determine enemy
+            if(Random.Range(0, 1f) < chanceToSpawnFromPreviousArea){
+                //Spawn from a previous zone
+                AreaInfoStruct area = areaInformation[Random.Range(0, currentArea.index + 1)];
+                enemy = enemySpawner.SpawnEnemy(area, level);
+            }else
+            {
+                //Spawn from this zone
+                enemy = enemySpawner.SpawnEnemy(currentArea);
+            }
+
+            if(numEnemies == 2)
+            {
+                //15% bonus exp if theres 2 enemies in the wave
+                enemy.AddExperienceMultiplier(1.15f);
+            }
+
+            if(numEnemies == 3)
+            {
+                //30% bonus exp if theres 3 enemies in the wave
+                enemy.AddExperienceMultiplier(1.3f);
+            }
+
             enemy.unitDied.AddListener(enemyHasDied);
             RpcNotifyEnemySpawn(enemy.gameObject);
             spawnedEnemies.Add(enemy);
@@ -171,6 +209,8 @@ public class FightManager : NetworkBehaviour {
 
     public void BackToMainMenu()
     {
+        PersistentHud.persistentHud.CoverSceneTransition();
+
         NetworkManager.singleton.ServerChangeScene("HomeScene");
 
     }

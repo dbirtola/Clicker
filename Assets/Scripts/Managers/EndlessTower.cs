@@ -60,6 +60,8 @@ public class EndlessTower : MonoBehaviour {
     public void ProcessResults()
     {
         towerFinishedEvent.Invoke();
+        FindObjectOfType<PlayerArtifacts>().AddArtifactPoints(artifactPointsEarned);
+        
     }
     
     public float GetTimeRemaining()
