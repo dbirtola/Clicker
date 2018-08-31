@@ -14,7 +14,7 @@ public class ManaPerTapProperty : ItemProperty{
     public int value;
 
 
-    public ManaPerTapProperty(Item item) : base(item)
+    public ManaPerTapProperty(Equipment item) : base(item)
     {
 
     }
@@ -40,12 +40,12 @@ public class ManaPerTapProperty : ItemProperty{
     }
 
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddManaPerTap(GetTotalValue()/100f);
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddManaPerTap(-1 * GetTotalValue()/100f);
     }

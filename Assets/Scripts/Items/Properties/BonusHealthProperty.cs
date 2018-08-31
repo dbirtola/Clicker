@@ -7,7 +7,7 @@ public class BonusHealthProperty : ItemProperty{
     public int value = 0;
 
 
-    public BonusHealthProperty(Item item) : base(item)
+    public BonusHealthProperty(Equipment item) : base(item)
     {
     }
 
@@ -31,12 +31,12 @@ public class BonusHealthProperty : ItemProperty{
         return displayString;
     }
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusHealth(GetTotalValue());
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusHealth(-1 * GetTotalValue());
     }

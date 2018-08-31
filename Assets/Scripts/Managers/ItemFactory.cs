@@ -8,6 +8,7 @@ public class ItemFactory : MonoBehaviour {
     static ItemFactory itemFactory = null;
 
     Dictionary<string, GameObject> items;
+    Dictionary<string, GameObject> charms;
 
     public const float baseDropChance = 0.25f;
     public const float qualityChance = 0.2f;
@@ -31,6 +32,11 @@ public class ItemFactory : MonoBehaviour {
         items["Weapon"] = Resources.Load("Weapon") as GameObject;
         items["Ring"] = Resources.Load("Ring") as GameObject;
 
+        charms = new Dictionary<string, GameObject>();
+        charms["MagicFindCharm"] = Resources.Load("MagicFindCharm") as GameObject;
+        charms["CriticalCharm"] = Resources.Load("CriticalCharm") as GameObject;
+        charms["HealthCharm"] = Resources.Load("HealthCharm") as GameObject;
+
 
     }
     // Use this for initialization
@@ -51,7 +57,7 @@ public class ItemFactory : MonoBehaviour {
             return null; //No Drop;
         }
 
-        Item newItem = null;
+        Equipment newItem = null;
 
 
         int itemType = Random.Range(0, 6);
@@ -60,22 +66,22 @@ public class ItemFactory : MonoBehaviour {
         switch (itemType)
         {
             case 0:
-                newItem = Instantiate(items["Armor"]).GetComponent<Item>(); 
+                newItem = Instantiate(items["Armor"]).GetComponent<Equipment>(); 
                 break;
             case 1:
-                newItem = Instantiate(items["Boots"]).GetComponent<Item>();
+                newItem = Instantiate(items["Boots"]).GetComponent<Equipment>();
                 break;
             case 2:
-                newItem = Instantiate(items["Gloves"]).GetComponent<Item>();
+                newItem = Instantiate(items["Gloves"]).GetComponent<Equipment>();
                 break;
             case 3:
-                newItem = Instantiate(items["Helmet"]).GetComponent<Item>();
+                newItem = Instantiate(items["Helmet"]).GetComponent<Equipment>();
                 break;
             case 4:
-                newItem = Instantiate(items["Weapon"]).GetComponent<Item>();
+                newItem = Instantiate(items["Weapon"]).GetComponent<Equipment>();
                 break;
             case 5:
-                newItem = Instantiate(items["Ring"]).GetComponent<Item>();
+                newItem = Instantiate(items["Ring"]).GetComponent<Equipment>();
                 break;
         }
         
@@ -105,17 +111,39 @@ public class ItemFactory : MonoBehaviour {
         return newItem;
     }
 
+    public Item GetCharmDrop()
+    {
+        Charm newCharm = null;
+        int charmType = Random.Range(0, 3);
+
+        switch (charmType)
+        {
+            case 0:
+                newCharm = Instantiate(charms["MagicFindCharm"]).GetComponent<Charm>();
+                break;
+            case 1:
+                newCharm = Instantiate(charms["CriticalCharm"]).GetComponent<Charm>();
+                break;
+            case 2:
+                newCharm = Instantiate(charms["HealthCharm"]).GetComponent<Charm>();
+                break;
+
+        }
+
+        return newCharm;
+    }
+
 
     //For testing purposes
-    public Item GetItemDrop(int level)
+    public Item GetItemDrop(int level, bool guaranteeDrop = false)
     {
 
-        if (Random.Range(0, 1f) > baseDropChance)
+        if (Random.Range(0, 1f) > baseDropChance && !guaranteeDrop)
         {
             return null; //No Drop;
         }
 
-        Item newItem = null;
+        Equipment newItem = null;
 
 
         int itemType = Random.Range(0, 6);
@@ -124,22 +152,22 @@ public class ItemFactory : MonoBehaviour {
         switch (itemType)
         {
             case 0:
-                newItem = Instantiate(items["Armor"]).GetComponent<Item>();
+                newItem = Instantiate(items["Armor"]).GetComponent<Equipment>();
                 break;
             case 1:
-                newItem = Instantiate(items["Boots"]).GetComponent<Item>();
+                newItem = Instantiate(items["Boots"]).GetComponent<Equipment>();
                 break;
             case 2:
-                newItem = Instantiate(items["Gloves"]).GetComponent<Item>();
+                newItem = Instantiate(items["Gloves"]).GetComponent<Equipment>();
                 break;
             case 3:
-                newItem = Instantiate(items["Helmet"]).GetComponent<Item>();
+                newItem = Instantiate(items["Helmet"]).GetComponent<Equipment>();
                 break;
             case 4:
-                newItem = Instantiate(items["Weapon"]).GetComponent<Item>();
+                newItem = Instantiate(items["Weapon"]).GetComponent<Equipment>();
                 break;
             case 5:
-                newItem = Instantiate(items["Ring"]).GetComponent<Item>();
+                newItem = Instantiate(items["Ring"]).GetComponent<Equipment>();
                 break;
         }
 
@@ -171,7 +199,7 @@ public class ItemFactory : MonoBehaviour {
 
     //itemType should match the class name of the item as stored
     //in the dictionary "items"
-    public Item SpawnItemOfType(string itemType)
+    public Equipment SpawnEquipmentOfType(string itemType)
     {
         if(items[itemType] == null)
         {
@@ -179,7 +207,7 @@ public class ItemFactory : MonoBehaviour {
             return null;
         }
 
-        Item newItem = Instantiate(items[itemType]).GetComponent<Item>();
+        Equipment newItem = Instantiate(items[itemType]).GetComponent<Equipment>();
         return newItem;
     }
 }

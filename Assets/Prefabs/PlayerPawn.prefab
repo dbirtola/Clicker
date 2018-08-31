@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 114209150647396716}
   - component: {fileID: 114919642588984492}
   - component: {fileID: 61671362479909618}
+  - component: {fileID: 114187557579974950}
+  - component: {fileID: 114684302112100780}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -71,6 +73,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.11, y: 0.11}
   m_EdgeRadius: 0
+--- !u!114 &114187557579974950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207947260303230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39ea2e4b51ff6b4387044d52eb0b6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeBuffs: []
 --- !u!114 &114209150647396716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,6 +112,18 @@ MonoBehaviour:
   maxHealth: 0
   showDamage: 1
   floatingTextPrefab: {fileID: 0}
+--- !u!114 &114684302112100780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207947260303230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957e00537d228124ca8f42507bc2ecab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
 --- !u!114 &114751595133042530
 MonoBehaviour:
   m_ObjectHideFlags: 1

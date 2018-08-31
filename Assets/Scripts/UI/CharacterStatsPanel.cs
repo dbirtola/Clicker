@@ -38,7 +38,7 @@ public class CharacterStatsPanel : MonoBehaviour {
         levelText.text = stats.level.ToString();
         damageText.text = stats.damage.ToString();
         healthText.text = stats.maxHealth.ToString();
-        armorText.text = stats.armor.ToString();
+        armorText.text = stats.armor.ToString() + " (-" + (int)(player.GetComponent<PlayerStats>().GetDamageReduction() * 100) + "%)";
         criticalChanceText.text = stats.criticalChance + "%";
         criticalDamageText.text = stats.criticalDamageBonus * 100 + "%";
         manaPerTapText.text = stats.manaPerTap.ToString();

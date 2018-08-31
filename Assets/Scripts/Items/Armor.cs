@@ -10,14 +10,14 @@ public enum ArmorSlot
     Boots
 }
 
-public class Armor : Item {
+public class Armor : Equipment {
 
     public int armorValue;
    // public int healthValue;
 
     public ArmorSlot slot;
 
-    override protected void Awake()
+    override public void Awake()
     {
         base.Awake();
         //implicitProperty = new ItemProperty();

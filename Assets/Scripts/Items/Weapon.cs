@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 
-public class Weapon : Item {
+public class Weapon : Equipment {
 
     public int damageValue;
     
-    override protected void Awake()
+    override public void Awake()
     {
         base.Awake();
         //implicitProperty = new ItemProperty();

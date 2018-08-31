@@ -57,7 +57,7 @@ public class ItemSelectPanel : MonoBehaviour {
         }
     }
 
-    void UpdateButtonWithItem(Button button, Item item)
+    void UpdateButtonWithItem(Button button, Equipment item)
     {
         if (item == null)
         {

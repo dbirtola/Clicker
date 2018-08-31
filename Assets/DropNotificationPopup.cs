@@ -23,7 +23,7 @@ public class DropNotificationPopup : MonoBehaviour {
 	}
 
 
-    public void Show(Item item)
+    public void Show(Equipment item)
     {
         itemNameText.text = "Found : " + item.itemName;
         StartCoroutine(scrollLeft(GetComponent<RectTransform>()));

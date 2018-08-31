@@ -232,8 +232,12 @@ public class PlayerStats : MonoBehaviour {
     //This will include the players multipliers, not meant to add a fixed amount of exp but to add exp gained from quests or kills
     public void AddExperience(int experience)
     {
-        baseStats.currentExperience += (int)(Mathf.Ceil(experience * GetExperienceMultiplier()));
-        gainedExperienceEvent.Invoke(experience);
+       int totalExpGained = (int)(Mathf.Ceil(experience * GetExperienceMultiplier()));
+
+        baseStats.currentExperience += totalExpGained;
+
+        //Debug.Log("Multiplied exp by : " + GetExperienceMultiplier());
+        gainedExperienceEvent.Invoke(totalExpGained);
 
         while (baseStats.currentExperience > GetExpTillLevel())
         {
@@ -336,6 +340,11 @@ public class PlayerStats : MonoBehaviour {
         return damage;
     }
 
+    public float GetDamageReduction()
+    {
+        //(LN(1 + E3:E62 / 50) / 4.5) 
+        return Mathf.Log(1 + GetTotalStatStruct().armor / 50) / 4.5f;
+    }
 
     public float GetExperienceMultiplier()
     {

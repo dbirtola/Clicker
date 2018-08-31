@@ -21,28 +21,28 @@ public class AbilitiesPanel : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log("Start fired\n");
+        //Debug.Log("Start fired\n");
         playerAbilities.abilityGainedEvent.AddListener(UpdateWithAbilities);
         UpdateWithAbilities(null);
     }
 
     public void UpdateWithAbilities(Ability newAbility)
     {
-        Debug.Log("Update Fired\n");
+       // Debug.Log("Update Fired\n");
         foreach (AbilityInfoPanel go in availableAbilitiesPanel.GetComponentsInChildren<AbilityInfoPanel>())
         {
             Destroy(go.gameObject);
         }
-        Debug.Log("Abilities panel " + playerAbilities.availableAbilities.Count);
+        //Debug.Log("Abilities panel " + playerAbilities.availableAbilities.Count);
 
         foreach(Ability ability in playerAbilities.availableAbilities)
         {
             if(ability == null)
             {
-                Debug.LogError("Null ability");
+               // Debug.LogError("Null ability");
                 continue;
             }
-            Debug.Log("Working on ability : " + ability.abilityName);
+            //Debug.Log("Working on ability : " + ability.abilityName);
             AbilityInfoPanel newPanel = Instantiate(abilityInfoPanelPrefab);
             newPanel.UpdateWithAbility(ability);
             newPanel.transform.SetParent(availableAbilitiesPanel.transform, false);

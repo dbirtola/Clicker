@@ -21,14 +21,15 @@ public class ItemPickedUpEvent : UnityEvent<Item, bool>
 [System.Serializable]
 public class PlayerInventoryData
 {
-    public List<ItemData> equippedItems;
-    public List<ItemData> heldItems;
+    public List<EquipmentData> equippedItems;
+    public List<EquipmentData> heldItems;
 
 }
 
 public class PlayerInventory : MonoBehaviour {
 
     public const int MaxItems = 20;
+    public const int MAX_EQUIPPED_CHARMS = 3;
 
     public InventoryModifiedEvent inventoryModifiedEvent;
     public ItemEquippedEvent itemEquippedEvent;
@@ -42,7 +43,10 @@ public class PlayerInventory : MonoBehaviour {
     public Armor equippedHelmet { get; private set; }
     public Ring equippedRing { get; private set; }
 
-    List<Item> items;
+    List<Equipment> items;
+
+    List<Charm> charms;
+    List<Charm> equippedCharms;
 
     //Using int instead of ItemQuality enum to allow for -1 in case user selects None
     public int autoSellQuality = -1;
@@ -51,7 +55,10 @@ public class PlayerInventory : MonoBehaviour {
 
     public void Awake()
     {
-        items = new List<Item>();
+        items = new List<Equipment>();
+        charms = new List<Charm>();
+        equippedCharms = new List<Charm>();
+        
         inventoryModifiedEvent = new InventoryModifiedEvent();
         itemEquippedEvent = new ItemEquippedEvent();
         itemPickedUpEvent = new ItemPickedUpEvent();
@@ -88,9 +95,9 @@ public class PlayerInventory : MonoBehaviour {
         return equippedHelmet;
     }
 
-    public List<Item> GetAllEquipped()
+    public List<Equipment> GetAllEquipped()
     {
-        List<Item> l = new List<Item>();
+        List<Equipment> l = new List<Equipment>();
         l.Add(equippedWeapon);
         l.Add(equippedArmor);
         l.Add(equippedHelmet);
@@ -101,7 +108,7 @@ public class PlayerInventory : MonoBehaviour {
         return l;
     }
 
-    public List<Item> getInventoryItems()
+    public List<Equipment> getInventoryItems()
     {
         return items;
     }
@@ -112,11 +119,12 @@ public class PlayerInventory : MonoBehaviour {
         if (addItem(item))
         {
             bool autoSell = (int)item.GetQuality() <= autoSellQuality;
-            if (autoSell)
+            if (autoSell && item.GetComponent<Equipment>())
             {
-                SellItem(item);
+                SellItem(item.GetComponent<Equipment>());
             }
 
+            Debug.Log("Invoked");
             itemPickedUpEvent.Invoke(item, autoSell);
             return true;
         }else
@@ -129,24 +137,57 @@ public class PlayerInventory : MonoBehaviour {
 
     public bool addItem(Item item)
     {
-        if(items.Count >= MaxItems || item == null)
+        if (item == null)
         {
             return false;
         }
-        items.Add(item);
-        inventoryModifiedEvent.Invoke();
 
-        return true;
+        if (item.GetComponent<Equipment>())
+        {
+
+            if (items.Count >= MaxItems)
+            {
+                return false;
+            }
+            items.Add(item.GetComponent<Equipment>());
+            inventoryModifiedEvent.Invoke();
+            return true;
+
+        }
+        if (item.GetComponent<Charm>()){
+            if (charms.Count >= MaxItems)
+            {
+                return false;
+            }
+
+            Debug.Log("Added Charm");
+            charms.Add(item.GetComponent<Charm>());
+            inventoryModifiedEvent.Invoke();
+            return true;
+        }
+
+        return false;
     }
 
     public bool RemoveItem(Item item)
     {
-        var temp = items.Remove(item); 
-        inventoryModifiedEvent.Invoke();
-        return temp;
+        if (item.GetComponent<Equipment>())
+        {
+
+            var temp = items.Remove(item.GetComponent<Equipment>());
+            inventoryModifiedEvent.Invoke();
+            return temp;
+        }
+        if (item.GetComponent<Charm>())
+        {
+            var temp = charms.Remove(item.GetComponent<Charm>());
+            inventoryModifiedEvent.Invoke();
+            return temp;
+        }
+        return false;
     }
 
-    public bool SellItem(Item item)
+    public bool SellItem(Equipment item)
     {
         if (items.Contains(item))
         {
@@ -163,7 +204,19 @@ public class PlayerInventory : MonoBehaviour {
         return true;
     }
 
-    public bool EquipItem(Item item)
+    public bool EquipCharm(Charm charm)
+    {
+        if(equippedCharms.Contains(charm)){
+            return false;
+        }
+
+        return true;
+        //RemoveCharm(charm);
+        
+
+    }
+
+    public bool EquipItem(Equipment item)
     {
         //Check if usable
         if (GetAllEquipped().Contains(item))
@@ -273,12 +326,12 @@ public class PlayerInventory : MonoBehaviour {
     public PlayerInventoryData SaveInventoryData()
     {
         PlayerInventoryData pid = new PlayerInventoryData();
-        pid.equippedItems = new List<ItemData>();
+        pid.equippedItems = new List<EquipmentData>();
 
         //Forgot I made a function for this until after typing it all.. damn.
 
         var equippedItems = GetAllEquipped();
-        foreach(Item item in equippedItems)
+        foreach(Equipment item in equippedItems)
         {
             if(item == null)
             {
@@ -286,7 +339,7 @@ public class PlayerInventory : MonoBehaviour {
                 pid.equippedItems.Add(null);
             }else
             {
-                pid.equippedItems.Add(item.SaveItemData());
+                pid.equippedItems.Add(item.SaveEquipmentData());
             }
         }
         /*
@@ -297,10 +350,10 @@ public class PlayerInventory : MonoBehaviour {
         pid.equippedItems.Add(equippedBoots.SaveItemData());
         */
 
-        pid.heldItems = new List<ItemData>();
-        foreach(Item i in items)
+        pid.heldItems = new List<EquipmentData>();
+        foreach(Equipment i in items)
         {
-            pid.heldItems.Add(i.SaveItemData());
+            pid.heldItems.Add(i.SaveEquipmentData());
         }
 
         return pid;
@@ -312,22 +365,22 @@ public class PlayerInventory : MonoBehaviour {
     {
         ItemFactory itemFactory = FindObjectOfType<ItemFactory>();
 
-        foreach(ItemData id in pid.equippedItems)
+        foreach(EquipmentData id in pid.equippedItems)
         {
             if(id != null)
             {
-                Item newItem = itemFactory.SpawnItemOfType(id.itemType);
-                newItem.LoadItemData(id);
+                Equipment newItem = itemFactory.SpawnEquipmentOfType(id.itemType);
+                newItem.LoadEquipmentData(id);
                 EquipItem(newItem);
             }
         }
 
-        foreach(ItemData id in pid.heldItems)
+        foreach(EquipmentData id in pid.heldItems)
         {
             if(id != null)
             {
-                Item newItem = itemFactory.SpawnItemOfType(id.itemType);
-                newItem.LoadItemData(id);
+                Equipment newItem = itemFactory.SpawnEquipmentOfType(id.itemType);
+                newItem.LoadEquipmentData(id);
                 addItem(newItem);
             }
         }

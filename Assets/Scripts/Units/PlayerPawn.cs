@@ -68,9 +68,11 @@ public class PlayerPawn : Unit {
         {
             return;
         }
-        float damageTakenPercent = 1f / (1.3f * Mathf.Pow(1.001f,statStruct.armor));
 
-        damage.damage = (int)(damage.damage - damage.damage * (1f-damageTakenPercent));
+        //DamageReduction = (LN(1 + E3:E62/50)/4.5)
+        float damageReduction = playerStats.GetDamageReduction();
+
+        damage.damage = (int)(damage.damage - damage.damage * damageReduction);
     }
 
 

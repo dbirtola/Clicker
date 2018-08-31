@@ -13,12 +13,12 @@ public class CraftingLevelUpEvent : UnityEvent<int>
 
 }
 
-public class ItemSelectedForCraftingEvent : UnityEvent<Item>
+public class ItemSelectedForCraftingEvent : UnityEvent<Equipment>
 {
 
 }
 
-public class ItemRefinedEvent : UnityEvent<Item>
+public class ItemRefinedEvent : UnityEvent<Equipment>
 {
 
 }
@@ -155,7 +155,7 @@ public class PlayerCrafting : MonoBehaviour {
     }
 
 
-    public int GetRefineCost(Item item)
+    public int GetRefineCost(Equipment item)
     {
         return (int)Mathf.Ceil(100 * (item.refineLevel + 1) + Mathf.Pow(4, (item.refineLevel + 1)));
     }
@@ -176,7 +176,7 @@ public class PlayerCrafting : MonoBehaviour {
         return 100 * item.itemLevel;
     }
 
-    public bool RefineItem(Item item)
+    public bool RefineItem(Equipment item)
     {
         if(materials < GetRefineCost(item) || item.refineLevel >= MAX_REFINE_LEVEL)
         {
@@ -201,7 +201,7 @@ public class PlayerCrafting : MonoBehaviour {
         }
     }
 
-    public bool UpgradeProperties(Item item)
+    public bool UpgradeProperties(Equipment item)
     {
         if(materials < GetPropertyUpgradeCost(item))
         {
@@ -234,7 +234,7 @@ public class PlayerCrafting : MonoBehaviour {
         return true;
     }
 
-    public bool AddRandomProperty(Item item)
+    public bool AddRandomProperty(Equipment item)
     {
         if(materials < GetAddRandomPropertyCost(item))
         {
@@ -248,7 +248,7 @@ public class PlayerCrafting : MonoBehaviour {
         return true;
     }
 
-    public bool RemoveProperty(Item item, ItemProperty property)
+    public bool RemoveProperty(Equipment item, ItemProperty property)
     {
         if(materials < GetRemovePropertyCost(item))
         {

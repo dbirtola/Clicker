@@ -6,7 +6,7 @@ public class BonusArmorProperty : ItemProperty{
 
     public int value;
 
-    public BonusArmorProperty(Item item) : base(item)
+    public BonusArmorProperty(Equipment item) : base(item)
     {
     }
 
@@ -42,12 +42,12 @@ public class BonusArmorProperty : ItemProperty{
 
 
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusArmor(GetTotalValue());
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusArmor(-1 * GetTotalValue());
     }

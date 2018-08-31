@@ -32,6 +32,8 @@ public class Unit : NetworkBehaviour {
 
     public UnitDiedEvent unitDied;
     public DamageEvent aboutToTakeDamageEvent;
+
+    public GameObject owner;
     
     //the dealt damage event is invoked after damage reductions to attribute a total number of damage to a specific unit,
     //typically by the health script.
@@ -61,6 +63,15 @@ public class Unit : NetworkBehaviour {
         RpcProcessDeath();
     }
 
+    public void SetOwner(GameObject owner)
+    {
+        this.owner = owner;
+    }
+
+    public GameObject GetOwner()
+    {
+        return owner;
+    }
     /*
     //Receives an attack and performs damage reduction and visual feedback
     //Childhit = -1 means the base object is hit, else it refers to the index of the child hit

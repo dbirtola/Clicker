@@ -27,6 +27,8 @@ public class Player : NetworkBehaviour {
 
     public TappedEnemyEvent tappedEnemyEvent;
 
+    public TappedEnemyEvent playerPawnSetEvent;
+
     public KilledEnemyEvent killedEnemyEvent;
 
     static Player playerController = null;
@@ -39,6 +41,7 @@ public class Player : NetworkBehaviour {
         dealtTapDamageEvent = new DealtTapDamageEvent();
         tappedEnemyEvent = new TappedEnemyEvent();
         killedEnemyEvent = new KilledEnemyEvent();
+        playerPawnSetEvent = new TappedEnemyEvent();
 
 
         playerStats = GetComponent<PlayerStats>();
@@ -155,7 +158,10 @@ public class Player : NetworkBehaviour {
     public void SetPlayerPawn(PlayerPawn playerPawn)
     {
         pPawn = playerPawn;
+        playerPawn.SetOwner(gameObject);
         playerPawn.CmdInitializeStats(GetComponent<PlayerStats>().GetTotalStatStruct());
+
+        playerPawnSetEvent.Invoke(pPawn.gameObject);
         
     }
 

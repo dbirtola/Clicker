@@ -15,9 +15,9 @@ public class ItemPropertyData
 
 public class ItemProperty {
 
-    protected Item item;
+    protected Equipment item;
 
-    public ItemProperty(Item item)
+    public ItemProperty(Equipment item)
     {
         this.item = item;
         Roll(this.item.itemLevel);
@@ -28,11 +28,11 @@ public class ItemProperty {
         return "No Display Information";
     }
 
-    public virtual void Equip(Item item, PlayerStats playerStats)
+    public virtual void Equip(Equipment item, PlayerStats playerStats)
     {
     }
 
-    public virtual void Unequip(Item item, PlayerStats playerStats)
+    public virtual void Unequip(Equipment item, PlayerStats playerStats)
     {
 
     }
@@ -64,7 +64,7 @@ public class ItemProperty {
         return 0;
     }
 
-    //Item property classes are responsible for filling in their fields themselves, since their value types
+    //Equipment property classes are responsible for filling in their fields themselves, since their value types
     //and volatile data may change from class to class
     public virtual ItemPropertyData SavePropertyData()
     {

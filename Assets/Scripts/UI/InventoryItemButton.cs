@@ -45,7 +45,7 @@ public class InventoryItemButton : MonoBehaviour {
     }
 
 
-    public void UpdateButtonWithItem(Item item)
+    public void UpdateButtonWithItem(Equipment item)
     {
         
         SetItem(item);

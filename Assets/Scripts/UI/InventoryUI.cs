@@ -43,7 +43,7 @@ public class InventoryUI : MonoBehaviour {
         playerInventory.autoSellQuality = autoSellDropdown.value - 1;
     }
 
-    public void ShowItemInfo(Item item)
+    public void ShowItemInfo(Equipment item)
     {
 
         itemInfoBox.UpdateWithItem(item);
@@ -75,7 +75,7 @@ public class InventoryUI : MonoBehaviour {
         }
     }
 
-    void UpdateButtonWithItem(Button button, Item item)
+    void UpdateButtonWithItem(Button button, Equipment item)
     {
         button.GetComponent<InventoryItemButton>().UpdateButtonWithItem(item);
         /*

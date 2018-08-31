@@ -29,7 +29,7 @@ public class CraftingScreen : MonoBehaviour {
 
     public Text materialsText;
 
-    public Item selectedItem;
+    public Equipment selectedItem;
     
 
     public void Awake()
@@ -54,7 +54,7 @@ public class CraftingScreen : MonoBehaviour {
 
 
 
-    void UpdateCraftingInfo(Item item)
+    void UpdateCraftingInfo(Equipment item)
     {
         selectedItem = item;
         itemInfoBox.UpdateWithItem(item);

@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 
-public class Ring : Item {
+public class Ring : Equipment {
 
     public int healthValue;
     
-    override protected void Awake()
+    override public void Awake()
     {
         base.Awake();
         //implicitProperty = new ItemProperty();

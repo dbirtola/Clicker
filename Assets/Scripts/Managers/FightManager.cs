@@ -33,7 +33,11 @@ public class FightManager : NetworkBehaviour {
     EnemySpawner enemySpawner;
     //Player player;
 
+    public Shrine shrinePrefab;
+
     public EnemySpawnedEvent enemySpawnedEvent;
+    public EnemySpawnedEvent shrineSpawnedEvent;
+
     public AreaLoadedEvent areaLoadedEvent;
 
     public AreaInfoStruct[] areaInformation;
@@ -49,6 +53,7 @@ public class FightManager : NetworkBehaviour {
        // player= FindObjectOfType<Player>();
 
         enemySpawnedEvent = new EnemySpawnedEvent();
+        shrineSpawnedEvent = new EnemySpawnedEvent();
         areaLoadedEvent = new AreaLoadedEvent();
     }
 
@@ -97,6 +102,12 @@ public class FightManager : NetworkBehaviour {
         enemySpawnedEvent.Invoke(enemy);
         //player.GetPlayerPawn().InitializeStats(player.GetComponent<PlayerStats>().GetTotalStatStruct());
 
+    }
+
+    [ClientRpc]
+    public void RpcNotifyShrineSpawn(GameObject shrine)
+    {
+        shrineSpawnedEvent.Invoke(shrine);
     }
 
     public void SetArea(int areaNumber)
@@ -202,10 +213,43 @@ public class FightManager : NetworkBehaviour {
         enemiesAlive--;
         if (enemiesAlive == 0)
         {
-            SpawnNextWave();
+            //Determine if wave or shrine
+
+            if(Random.Range(0, 2) == 0)
+            {
+                SpawnShrine();
+            }else
+            {
+                SpawnNextWave();
+            }
         }
     }
 
+
+    public void SpawnShrine()
+    {
+        var shrine = Instantiate(shrinePrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        NetworkServer.Spawn(shrine.gameObject);
+
+        shrine.StartShrineEvent();
+        shrineSpawnedEvent.Invoke(shrine.gameObject);
+
+        shrine.shrineEventFinishedEvent.AddListener(() => { ShrineFinished(shrine); });
+    }
+
+    public void ShrineFinished(Shrine shrine)
+    {
+        //SpawnNextWave();
+        StartCoroutine(ShrineFinishedRoutine(shrine));
+    }
+
+    IEnumerator ShrineFinishedRoutine(Shrine shrine)
+    {
+        //Fake pause while there is no shrine death animation
+        yield return new WaitForSeconds(1.5f);
+        Destroy(shrine.gameObject);
+        SpawnNextWave();
+    }
 
     public void BackToMainMenu()
     {

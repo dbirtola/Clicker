@@ -9,7 +9,7 @@ public class CriticalChanceProperty : ItemProperty{
 
     public float value;
    
-    public CriticalChanceProperty(Item item) : base(item)
+    public CriticalChanceProperty(Equipment item) : base(item)
     {
 
     }
@@ -35,12 +35,12 @@ public class CriticalChanceProperty : ItemProperty{
     }
 
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusCriticalChance(GetTotalValue());
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusCriticalChance(-1 * GetTotalValue());
     }

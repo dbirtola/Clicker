@@ -9,7 +9,7 @@ public class CriticalDamageProperty : ItemProperty{
     public int value;
 
 
-    public CriticalDamageProperty(Item item) : base(item)
+    public CriticalDamageProperty(Equipment item) : base(item)
     {
 
     }
@@ -35,12 +35,12 @@ public class CriticalDamageProperty : ItemProperty{
     }
 
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusCriticalDamage(GetTotalValue()/100);
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddBonusCriticalDamage(-1 * GetTotalValue()/100);
     }

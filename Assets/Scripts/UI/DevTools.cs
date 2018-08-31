@@ -107,7 +107,7 @@ public class DevTools : MonoBehaviour {
         }
 
         ItemFactory iFactory = FindObjectOfType<ItemFactory>();
-        var item = iFactory.SpawnItemOfType(itemSlotDropdown.captionText.text);
+        var item = iFactory.SpawnEquipmentOfType(itemSlotDropdown.captionText.text);
         Debug.Log("Caption text was: " + itemSlotDropdown.captionText.text);
         item.SetQuality(itemQualityDropdown.value);
 

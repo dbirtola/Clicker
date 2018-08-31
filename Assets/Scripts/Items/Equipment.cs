@@ -2,18 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemQuality
-{
-    Normal,
-    Magic,
-    Rare,
-    Epic,
-    Unique
-}
 
 //Only need to save data generated through gameplay, not data from the prefabs
 [System.Serializable]
-public class ItemData
+public class EquipmentData
 {
     public string itemType;
     public ItemQuality itemQuality;
@@ -24,39 +16,32 @@ public class ItemData
     
 }
 
-public class Item : MonoBehaviour {
+public class Equipment : Item {
 
 
 
-    public string itemName;
-    public Sprite itemIcon;
-    ItemQuality itemQuality = ItemQuality.Normal;
-    public int itemLevel = 1;
+
     protected ItemProperty implicitProperty;
     protected List<ItemProperty> properties;
 
-    protected bool isEquipped = false;
-
-    protected PlayerStats playerStats;
-    
 
     public int refineLevel = 0;
 
 
-    virtual protected void Awake()
+    override public void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
+        base.Awake();
         properties = new List<ItemProperty>();
         playerStats = FindObjectOfType<PlayerStats>();
 
     }
+
     virtual protected void Start()
     {
        // implicitProperty = new BonusHealthProperty(this);
     }
 
-    public string GetDisplayName()
+    public override string GetDisplayName()
     {
         if(refineLevel != 0)
         {
@@ -67,26 +52,25 @@ public class Item : MonoBehaviour {
         }
     }
 	
-    public virtual void Equip()
+    public override void Equip()
     {
-
+        base.Equip();
         implicitProperty.Equip(this, playerStats);
         foreach(ItemProperty ip in properties)
         {
             ip.Equip(this, playerStats);
         }
-        isEquipped = true;
         
     }
 
-    public virtual void Unequip()
+    public override void Unequip()
     {
+       base.Unequip();
        implicitProperty.Unequip(this, playerStats);
        foreach (ItemProperty ip in properties)
        {
             ip.Unequip(this, playerStats);
         }
-        isEquipped = false;
     }
 
     public ItemProperty GetImplicitProperty()
@@ -99,11 +83,7 @@ public class Item : MonoBehaviour {
     {
         return properties;
     }
-    
-    public bool GetEquipped()
-    {
-        return isEquipped;
-    }
+
 
     public virtual void IncreaseRefineLevel()
     {
@@ -224,22 +204,8 @@ public class Item : MonoBehaviour {
         return 0;
     }
 
-    public void SetQuality(int quality)
-    {
-        itemQuality = (ItemQuality)quality;
-    }
 
-    public ItemQuality GetQuality()
-    {
-        return itemQuality;
-    }
 
-    public virtual void SetLevel(int level)
-    {
-        itemLevel = level;
-    }
-
-    
 
     
         //Probably a better and safer way to do this than string comparison, but this works for now
@@ -279,9 +245,9 @@ public class Item : MonoBehaviour {
     }
 
 
-    public ItemData SaveItemData()
+    public EquipmentData SaveEquipmentData()
     {
-        ItemData itemData = new ItemData();
+        EquipmentData itemData = new EquipmentData();
         //Basically this has an issue because the 4 main armor types are all of class Armor, which makes GetType() return Armor for each one
         //Need to either split into subclasses or find a better way to store the itemtype data. Name will work but is not reliable, as item names
         //Should be able to change without corrupting save game data
@@ -302,7 +268,7 @@ public class Item : MonoBehaviour {
 
 
     //Type should have already been determined by the inventory class when loading the items
-    public void LoadItemData(ItemData itemData)
+    public void LoadEquipmentData(EquipmentData itemData)
     {
         itemLevel = itemData.itemLevel;
         itemQuality = itemData.itemQuality;

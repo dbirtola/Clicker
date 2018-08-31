@@ -15,7 +15,7 @@ public class PoisonDamageProperty : ItemProperty{
     public int value;
 
 
-    public PoisonDamageProperty(Item item) : base(item)
+    public PoisonDamageProperty(Equipment item) : base(item)
     {
 
     }
@@ -41,12 +41,12 @@ public class PoisonDamageProperty : ItemProperty{
     }
 
 
-    public override void Equip(Item item, PlayerStats playerStats)
+    public override void Equip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddPoisonDamage(GetTotalValue()/10f);
     }
 
-    public override void Unequip(Item item, PlayerStats playerStats)
+    public override void Unequip(Equipment item, PlayerStats playerStats)
     {
         playerStats.AddPoisonDamage(-1 * GetTotalValue()/10f);
     }

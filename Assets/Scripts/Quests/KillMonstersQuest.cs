@@ -24,11 +24,10 @@ public class KillMonstersQuest : Quest {
 
     public void OnEnemyKilled(Enemy enemy)
     {
-        Debug.Log("Checking type");
-        Debug.Log("Types: " + enemy.GetType() + " vs " + targetEnemy.GetType());
+       // Debug.Log("Types: " + enemy.GetType() + " vs " + targetEnemy.GetType());
         if (enemy.GetType() == targetEnemy.GetType()) {
             progress++;
-            Debug.Log(questName + ": (" + progress + "/" + required +")");
+       //     Debug.Log(questName + ": (" + progress + "/" + required +")");
 
             if(progress == required)
             {

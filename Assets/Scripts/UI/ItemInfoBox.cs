@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemInfoBox : MonoBehaviour {
 
-    Item targetItem;
+    Equipment targetItem;
 
     public Text itemNameText;
     public Text mainStatText;
@@ -19,7 +19,7 @@ public class ItemInfoBox : MonoBehaviour {
     public Color[] qualityColors = { Color.white, Color.blue, Color.yellow, Color.cyan, Color.green };
 
 
-    public void UpdateWithItem(Item item)
+    public void UpdateWithItem(Equipment item)
     {
         targetItem = item;
 
