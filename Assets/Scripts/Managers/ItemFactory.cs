@@ -10,7 +10,7 @@ public class ItemFactory : MonoBehaviour {
     Dictionary<string, GameObject> items;
     Dictionary<string, GameObject> charms;
 
-    public const float baseDropChance = 0.25f;
+    public const float baseDropChance = 0.1f;
     public const float qualityChance = 0.2f;
 
     void Awake()

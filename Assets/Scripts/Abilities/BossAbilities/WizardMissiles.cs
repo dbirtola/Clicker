@@ -33,7 +33,7 @@ public class WizardMissiles : MonoBehaviour {
         {
             foreach (PlayerPawn p in targetSquare.pawnsOnSquare)
             {
-                p.ReceiveAttack(new DamageInfo(gameObject, gameObject, p.gameObject, damage));
+                p.ReceiveAttack(new DamageInfo(instigator, gameObject, p.gameObject, damage));
             }
 
 

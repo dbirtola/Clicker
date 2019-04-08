@@ -60,4 +60,9 @@ public class KillMonstersQuest : Quest {
 
         }
     }
+
+    public override float GetProgress()
+    {
+        return ((float)progress / required);
+    }
 }

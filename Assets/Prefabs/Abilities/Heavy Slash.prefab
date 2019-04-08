@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1970153170598268}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1970153170598268
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4174844496107558}
   - component: {fileID: 114884475468877662}
@@ -31,7 +31,7 @@ GameObject:
 --- !u!4 &4174844496107558
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970153170598268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -44,7 +44,7 @@ Transform:
 --- !u!114 &114550282884330894
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970153170598268}
   m_Enabled: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
 --- !u!114 &114884475468877662
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970153170598268}
   m_Enabled: 1
@@ -85,11 +85,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owningPlayer: {fileID: 0}
-  owningPawn: {fileID: 0}
+  owningUnit: {fileID: 0}
   abilityName: Heavy Slash
   description: Your next tap does 10x damage.
   cooldown: 10
   manaCost: 30
+  requiresQueue: 1
   timeOffCooldown: 0
-  icon: {fileID: 21300000, guid: 123f661ab7a67b5429834850a45ce65b, type: 3}
+  icon: {fileID: 21300000, guid: 772f9e7513aa224469ad824f5d0dba1a, type: 3}
   tapDamageMultiplier: 15

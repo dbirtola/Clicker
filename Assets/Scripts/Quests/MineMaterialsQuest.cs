@@ -47,4 +47,9 @@ public class MineMaterialsQuest : Quest {
             StartQuest();
         }
     }
+
+    public override float GetProgress()
+    {
+        return (float)progress / materialsRequired;
+    }
 }

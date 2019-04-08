@@ -43,7 +43,7 @@ public class PersistentHud : MonoBehaviour {
     public void Start()
     {
         FindObjectOfType<PlayerQuests>().questFinishedEvent.AddListener(ShowQuestBanner);
-            FindObjectOfType<PlayerInventory>().itemPickedUpEvent.AddListener(NotifyDrop);
+        FindObjectOfType<PlayerInventory>().itemPickedUpEvent.AddListener(NotifyDrop);
         FindObjectOfType<PersistanceManager>().persistantDataLoadedEvent.AddListener(()=> { UpdateExperience(0); });
         FindObjectOfType<PlayerStats>().gainedExperienceEvent.AddListener(UpdateExperience);
         FindObjectOfType<PlayerCrafting>().materialGainedEvent.AddListener(UpdateMaterials);
@@ -72,7 +72,17 @@ public class PersistentHud : MonoBehaviour {
         {
             Vector3 offset = new Vector3(0, -1, 0);
             var position = materialsText.transform.position + offset;
-            ShowFloatingNumber("+" + mats, Color.cyan, new Vector3(0.5f, 0.5f, 1), position);
+
+            //Display the materials gained in cyan. If materials are being used display in red and add a -
+            Color color = Color.cyan;
+            if(mats < 0)
+            {
+                color = Color.red;
+            }
+
+            string txt = (mats > 0) ? "+" : "-";
+            txt += mats;
+            ShowFloatingNumber(txt, color, new Vector3(0.5f, 0.5f, 1), position);
         }
     }
 

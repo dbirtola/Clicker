@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1898385871486170}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1898385871486170
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4319086462832628}
   - component: {fileID: 212940372194401346}
@@ -35,7 +35,7 @@ GameObject:
 --- !u!4 &4319086462832628
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -48,7 +48,7 @@ Transform:
 --- !u!61 &61486143817300048
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -73,7 +73,7 @@ BoxCollider2D:
 --- !u!114 &114642951631702152
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
 --- !u!114 &114662108395906600
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
 --- !u!114 &114700600511737894
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -132,7 +132,7 @@ MonoBehaviour:
 --- !u!114 &114893387976722336
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -144,15 +144,21 @@ MonoBehaviour:
   currentSpeed: 3
   baseSpeed: 3
   slowPercent: 0
+  owner: {fileID: 0}
   damage: 15
   level: 1
+  description: One swing is all he needs, but he takes his sweet time lining it up.
+  mechanic: Performs an Execute move which is interupted when damage is taken.
+  counterplay: When fighting other monsters, be sure to keep an eye out for the execute
+    and tap once or use a multi-target ability to interupt the move. Not a huge threat
+    otherwise.
   healthMultiplier: 1
   damageMultiplier: 4.5
   executeDelay: 2
 --- !u!212 &212940372194401346
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898385871486170}
   m_Enabled: 1
@@ -194,3 +200,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

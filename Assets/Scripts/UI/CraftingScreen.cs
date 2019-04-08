@@ -49,7 +49,6 @@ public class CraftingScreen : MonoBehaviour {
             }
         );
         */
-
     }
 
 
@@ -57,7 +56,10 @@ public class CraftingScreen : MonoBehaviour {
     void UpdateCraftingInfo(Equipment item)
     {
         selectedItem = item;
+
         itemInfoBox.UpdateWithItem(item);
+
+
         refineCostText.text = playerCrafting.GetRefineCost(item).ToString();
         addPropertyText.text = playerCrafting.GetAddRandomPropertyCost(item).ToString();
         removePropertyText.text = playerCrafting.GetRemovePropertyCost(item).ToString();

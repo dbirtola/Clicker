@@ -37,4 +37,9 @@ public class RefineItemQuest : Quest {
             StartQuest();
         }
     }
+
+    public override float GetProgress()
+    {
+        return this.enabled ? 0 : 1;
+    }
 }

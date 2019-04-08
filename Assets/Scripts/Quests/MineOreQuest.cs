@@ -74,4 +74,9 @@ public class MineOreQuest : Quest {
             StartQuest();
         }
     }
+
+    public override float GetProgress()
+    {
+        return (float)progress / required;
+    }
 }

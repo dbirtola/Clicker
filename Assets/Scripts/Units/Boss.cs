@@ -37,10 +37,10 @@ public class Boss : Enemy{
 
 
     //Possible place for optimization
-    protected List<PlayerPawn> GetPlayerPawns()
-    {
-        return new List<PlayerPawn>(FindObjectsOfType<PlayerPawn>());
-    }
+   // protected List<PlayerPawn> GetPlayerPawns()
+   // {
+   //     return new List<PlayerPawn>(FindObjectsOfType<PlayerPawn>());
+   // }
 
     protected PlayerPawn GetRandomPlayerPawn()
     {

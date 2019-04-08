@@ -14,6 +14,10 @@ public class Enemy : Unit{
     public int level = 1;
     protected int experience = 0;
 
+    public string description = "No description";
+    public string mechanic = "None";
+    public string counterplay = "None";
+
     public float dropChanceMultiplier { get; private set; }
     public float dropQualityMultiplier { get; private set; }
 

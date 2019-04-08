@@ -66,6 +66,11 @@ public class PlayerQuests : MonoBehaviour {
 
     }
 
+    bool GetIsUnlocked()
+    {
+        return endlessTowerUnlocked;
+    }
+
 
     public void LoadQuestState(List<QuestState> loadStates)
     {

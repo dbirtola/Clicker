@@ -30,6 +30,8 @@ public class FightManager : NetworkBehaviour {
 
     const float chanceToSpawnFromPreviousArea = 0.4f;
 
+    //Range of 0 to 1
+    const float shrineChance = (1f / 200);
     EnemySpawner enemySpawner;
     //Player player;
 
@@ -215,7 +217,7 @@ public class FightManager : NetworkBehaviour {
         {
             //Determine if wave or shrine
 
-            if(Random.Range(0, 2) == 0)
+            if(Random.Range(0, 1f) <= shrineChance)
             {
                 SpawnShrine();
             }else

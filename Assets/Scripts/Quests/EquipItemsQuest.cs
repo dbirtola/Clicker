@@ -53,4 +53,22 @@ public class EquipItemsQuest : Quest {
             StartQuest();
         }
     }
+
+    public override float GetProgress()
+    {
+        var items = playerController.GetComponent<PlayerInventory>().GetAllEquipped();
+
+        int numPassing = 0;
+
+        foreach (Item i in items)
+        {
+            if (i == null || i.GetQuality() < requiredQuality)
+            {
+                continue;
+            }
+            numPassing++;
+        }
+
+        return ((float)numPassing / 6);
+    }
 }

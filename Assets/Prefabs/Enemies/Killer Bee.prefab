@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1011741982857784}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1011741982857784
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4572514935683616}
   - component: {fileID: 212339196436455412}
@@ -35,9 +35,9 @@ GameObject:
 --- !u!1 &1759101311684186
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4439778219965360}
   - component: {fileID: 212109084289840372}
@@ -53,7 +53,7 @@ GameObject:
 --- !u!4 &4439778219965360
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759101311684186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -66,7 +66,7 @@ Transform:
 --- !u!4 &4572514935683616
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -80,7 +80,7 @@ Transform:
 --- !u!61 &61134131437101284
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759101311684186}
   m_Enabled: 1
@@ -105,7 +105,7 @@ BoxCollider2D:
 --- !u!61 &61891070455558538
 BoxCollider2D:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -130,7 +130,7 @@ BoxCollider2D:
 --- !u!114 &114031406516220508
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
 --- !u!114 &114307676593555510
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -154,8 +154,13 @@ MonoBehaviour:
   currentSpeed: 1.2
   baseSpeed: 1.2
   slowPercent: 0
+  owner: {fileID: 0}
   damage: 3
   level: 4
+  description: It buzzes, it stings, it kills. Typical bee stuff.
+  mechanic: Moves around a little bit and has a weak spot.
+  counterplay: Aim for the weak spot to deal bonus damage and carve through its large
+    health pool.
   healthMultiplier: 1.8
   damageMultiplier: 1.2
   weakSpot: {fileID: 0}
@@ -164,7 +169,7 @@ MonoBehaviour:
 --- !u!114 &114358632948037626
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759101311684186}
   m_Enabled: 1
@@ -177,7 +182,7 @@ MonoBehaviour:
 --- !u!114 &114752252640132184
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -209,7 +214,7 @@ MonoBehaviour:
 --- !u!114 &114855568968641264
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -224,7 +229,7 @@ MonoBehaviour:
 --- !u!212 &212109084289840372
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759101311684186}
   m_Enabled: 1
@@ -266,10 +271,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!212 &212339196436455412
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011741982857784}
   m_Enabled: 1
@@ -311,3 +317,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

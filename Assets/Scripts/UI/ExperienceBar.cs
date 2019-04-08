@@ -21,7 +21,7 @@ public class ExperienceBar : MonoBehaviour {
 
     public void updateLevel(int level)
     {
-        levelText.text = "Lvl: " + level;
+        levelText.text = "Lv. " + level;
     }
     // Update is called once per frame
     void Update()

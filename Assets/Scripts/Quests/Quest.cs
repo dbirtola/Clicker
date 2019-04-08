@@ -100,4 +100,10 @@ public class Quest : MonoBehaviour {
         return questName;
     }
 
+
+
+    public virtual float GetProgress()
+    {
+        return 0;
+    }
 }

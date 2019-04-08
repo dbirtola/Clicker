@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1114900989677660}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1114900989677660
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4741710519110316}
   - component: {fileID: 114999500750945508}
@@ -31,7 +31,7 @@ GameObject:
 --- !u!4 &4741710519110316
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1114900989677660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -44,7 +44,7 @@ Transform:
 --- !u!114 &114966707244855220
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1114900989677660}
   m_Enabled: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
 --- !u!114 &114999500750945508
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1114900989677660}
   m_Enabled: 1
@@ -85,10 +85,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owningPlayer: {fileID: 0}
-  owningPawn: {fileID: 0}
+  owningUnit: {fileID: 0}
   abilityName: Cleave
-  description: Attack all targets on screen for 3x damage.
-  cooldown: 0
+  description: Attack all targets on screen for 5x damage.
+  cooldown: 5
   manaCost: 20
+  requiresQueue: 1
   timeOffCooldown: 0
-  icon: {fileID: 21300000, guid: 635ae368277b6e040804ea34510f2126, type: 3}
+  icon: {fileID: 21300000, guid: 0122faa02eb5cef41b1778b6ca533121, type: 3}
+  damageMultiplier: 5

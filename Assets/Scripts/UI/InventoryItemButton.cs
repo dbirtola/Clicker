@@ -45,7 +45,7 @@ public class InventoryItemButton : MonoBehaviour {
     }
 
 
-    public void UpdateButtonWithItem(Equipment item)
+    public void UpdateButtonWithItem(Item item)
     {
         
         SetItem(item);
@@ -62,27 +62,35 @@ public class InventoryItemButton : MonoBehaviour {
             return;
         }
         button.onClick.RemoveAllListeners();
-       // button.onClick.AddListener(() => 
+        // button.onClick.AddListener(() => 
 
         //This is getting sloppy, should probably redo this
-        button.onClick.AddListener(() =>
+        //Definitely redo this. it assumes all items are going to be equipment and that they should be equipped
+
+        if (item.GetComponent<Equipment>())
         {
-            Debug.Log("Clicked");
-            if (Time.time - timeClicked < doubleClickThreshold)
+
+            button.onClick.AddListener(() =>
             {
-                inv.itemInfoBox.gameObject.SetActive(false);
-                FindObjectOfType<PlayerInventory>().EquipItem(item);
-            }
-            else
-            {
-                inv.ShowItemInfo(item);
-                Debug.Log("Not fast enough: " + Time.time + " vs " + timeClicked);
-                timeClicked = Time.time;
+                Debug.Log("Clicked");
+                if (Time.time - timeClicked < doubleClickThreshold)
+                {
+                    inv.itemInfoBox.gameObject.SetActive(false);
+                    FindObjectOfType<PlayerInventory>().EquipItem(item.GetComponent<Equipment>());
+                }
+                else
+                {
+                    inv.ShowItemInfo(item.GetComponent<Equipment>());
+                    Debug.Log("Not fast enough: " + Time.time + " vs " + timeClicked);
+                    timeClicked = Time.time;
+                }
+
             }
 
+);
+
         }
-        
-        );
+
 
         //button.GetComponentInChildren<Text>().text = item.itemName; //Move to inside the box
         button.image.sprite = item.itemIcon;

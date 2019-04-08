@@ -9,7 +9,7 @@ public class BarbarianAxe : Enemy{
 
     float trackSpeedX = 0.001f;
     float trackSpeedY = 0.0005f;
-    GameObject owner;
+    //GameObject owner;
 
     protected override void Awake()
     {

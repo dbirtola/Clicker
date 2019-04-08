@@ -17,6 +17,8 @@ public class MiningRock : MonoBehaviour {
 
     public FloatingText floatingTextPrefab;
 
+    public Sprite[] oreVariations;
+
     void Awake()
     {
         playerCrafting = FindObjectOfType<PlayerCrafting>();
@@ -68,6 +70,9 @@ public class MiningRock : MonoBehaviour {
                 Vector3 offset = new Vector3(Random.Range(-70, 70), Random.Range(-50, 50), 0);
                 var newOre = Instantiate(ores[oreType], transform.position + offset, Quaternion.identity);
                 newOre.transform.SetParent(transform);
+
+                newOre.GetComponent<Button>().image.sprite = oreVariations[Random.Range(0, oreVariations.Length)];
+                newOre.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
 
                 newOre.GetComponent<Button>().onClick.AddListener(()=> {
                     playerCrafting.MineOre(oreType);

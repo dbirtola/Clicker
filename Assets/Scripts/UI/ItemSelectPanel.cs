@@ -57,7 +57,7 @@ public class ItemSelectPanel : MonoBehaviour {
         }
     }
 
-    void UpdateButtonWithItem(Button button, Equipment item)
+    void UpdateButtonWithItem(Button button, Item item)
     {
         if (item == null)
         {
@@ -67,8 +67,12 @@ public class ItemSelectPanel : MonoBehaviour {
             button.image.sprite = emptyIcon;
             return;
         }
+
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => FindObjectOfType<PlayerCrafting>().itemSelectedForCraftingEvent.Invoke(item));
+        if (item.GetComponent<Equipment>())
+        {
+            button.onClick.AddListener(() => FindObjectOfType<PlayerCrafting>().itemSelectedForCraftingEvent.Invoke(item.GetComponent<Equipment>()));
+        }
         button.onClick.AddListener(() => gameObject.SetActive(false));
 
 

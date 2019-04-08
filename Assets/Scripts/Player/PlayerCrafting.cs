@@ -176,6 +176,12 @@ public class PlayerCrafting : MonoBehaviour {
         return 100 * item.itemLevel;
     }
 
+    public void UseMaterials(int amount)
+    {
+        materials -= amount;
+        materialGainedEvent.Invoke(-1 * amount);
+    }
+
     public bool RefineItem(Equipment item)
     {
         if(materials < GetRefineCost(item) || item.refineLevel >= MAX_REFINE_LEVEL)
@@ -183,7 +189,7 @@ public class PlayerCrafting : MonoBehaviour {
             return false;
         }else
         {
-            materials -= GetRefineCost(item);
+            UseMaterials(GetRefineCost(item));
 
             if (item.GetEquipped())
             {

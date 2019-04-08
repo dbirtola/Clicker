@@ -25,12 +25,13 @@ public class NetDiscovery : NetworkDiscovery {
 
 
        NetworkTransport.AddHost(top, 7778);
-
-        broadcastData = Network.player.ipAddress;
+        
+        //Switched to this call after Network.player.ipAddress was deprecated. Hasn't been tested yet.
+        broadcastData = NetworkManager.singleton.networkAddress; //Network.player.ipAddress;
         StartAsServer();
-
+        
         NetworkManager.singleton.networkPort = 7777;
-        NetworkManager.singleton.networkAddress = Network.player.ipAddress;
+        NetworkManager.singleton.networkAddress = NetworkManager.singleton.networkAddress;  //<---- another instance of the new call that hasn't been tested
 
         NetworkManager.singleton.StartHost();
     }
